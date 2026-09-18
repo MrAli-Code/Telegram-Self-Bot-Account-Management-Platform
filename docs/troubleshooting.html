@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>راهنمای عیب‌یابی - تلگرام سلف-بات</title>
+<style>
+:root{--bg:#0f0f23;--bg2:#1a1a2e;--bg3:#16213e;--text:#e4e4f0;--text2:#a0a0b8;--text3:#6b6b80;--accent:#6c5ce7;--accent2:#5a4bd1;--ok:#00b894;--warn:#fdcb6e;--danger:#e74c3c;--info:#74b9ff;--border:#2d2d44;--font:-apple-system,BlinkMacSystemFont,'Segoe UI',Tahoma,sans-serif;--mono:'Cascadia Code',Consolas,monospace}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.8;font-size:15px}code{font-family:var(--mono);background:#0b0b1c;border:1px solid var(--border);padding:2px 8px;border-radius:6px;font-size:0.9em;color:var(--warn)}pre{background:#0b0b1c;border:1px solid var(--border);border-radius:8px;padding:16px;overflow-x:auto;margin:14px 0;font-size:0.85rem;color:var(--text)}pre code{background:none;border:none;padding:0;color:inherit}
+.topbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:100}
+.topbar h1{font-size:1.3rem;background:linear-gradient(135deg,var(--accent),#a29bfe);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.topbar a{color:var(--info);text-decoration:none;font-size:0.85rem}
+.topbar a:hover{text-decoration:underline}
+.container{max-width:960px;margin:0 auto;padding:24px}
+h2{font-size:1.5rem;margin:32px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--accent);display:flex;align-items:center;gap:10px}
+h3{font-size:1.15rem;margin:20px 0 8px;color:var(--accent)}
+p{margin:8px 0;color:var(--text2)}
+ul{margin:8px 0 8px 24px;color:var(--text2)}li{margin:4px 0}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;margin:12px 0}
+.tag{display:inline-block;padding:3px 12px;border-radius:20px;font-size:0.75rem;font-weight:700;margin-bottom:8px}
+.tag-red{background:rgba(231,76,60,0.15);color:var(--danger)}
+.tag-yellow{background:rgba(253,203,110,0.15);color:var(--warn)}
+.tag-green{background:rgba(0,184,148,0.15);color:var(--ok)}
+.tag-blue{background:rgba(116,185,255,0.15);color:var(--info)}
+.warn-box{background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:10px;padding:16px;margin:16px 0}
+.ok-box{background:rgba(0,184,148,0.1);border:1px solid rgba(0,184,148,0.3);border-radius:10px;padding:16px;margin:16px 0}
+.info-box{background:rgba(108,92,231,0.1);border:1px solid rgba(108,92,231,0.3);border-radius:10px;padding:16px;margin:16px 0}
+.step{padding:16px 20px;background:var(--bg2);border-right:4px solid var(--accent);border-radius:0 10px 10px 0;margin-bottom:14px}
+.step h4{color:var(--text);margin-top:0}
+.method{font-family:var(--mono);font-size:0.75rem;font-weight:700;padding:3px 10px;border-radius:6px;color:#fff;display:inline-block}
+.get{background:#27ae60}.post{background:#2980b9}.delete{background:#e74c3c}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:0.9rem}th{background:var(--bg3);text-align:right;padding:10px 14px;font-size:0.8rem;color:var(--text2);border-bottom:2px solid var(--border)}td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text2)}tr:hover td{background:var(--bg3)}
+.footer{margin-top:40px;padding:20px;border-top:1px solid var(--border);text-align:center;color:var(--text3);font-size:0.8rem}
+@media(max-width:700px){.container{padding:12px}}
+</style>
+</head>
+<body>
+<div class="topbar">
+<h1>🧯 عیب‌یابی</h1>
+<a href="index.html">🏠 صفحه اصلی</a>
+<a href="install.html">📖 نصب</a>
+<a href="user-guide.html">📗 راهنمای کار</a>
+<a href="features.html">✨ ویژگی‌ها</a>
+</div>
+<div class="container">
+
+<h2>📋 فهرست مشکلات</h2>
+<p>برای هر مشکل مرحله به مرحله راهنمایی شده است.</p>
+
+<h3>🔴 مشکلات تلگرام و اتصال</h3>
+
+<div class="step">
+<h4><span class="tag tag-red">معمولی</span>خطای FloodWait (محدودیت تلگرام)</h4>
+<p>تلگرام محدودیت را رعایت می‌کند و از ارسال پیام بیش از حد جلوگیری می‌کند.</p>
+<p><b>علت:</b> ارسال زیاد پیام در مدت کوتاه، حالت اتوماتیک آنلاین بودن، یا ارسال انبوه بدون تأخیر.</p>
+<p><b>راه‌حل:</b></p>
+<ul>
+<li>از دکمه <b>EMERGENCY STOP</b> در بخش مرکز امنیت استفاده کنید</li>
+<li>فاصله زمانی ارسال (delay) را به <code>5-10</code> ثانیه افزایش دهید</li>
+<li>سطح آرام‌سازی حساب (Account Warming) را به <code>beginner</code> برگردانید</li>
+<li>منتظر اتمام زمان محدودیت (معمولاً ۱ تا ۲۴ ساعت) بمانید</li>
+<li>سقف روزانه پاسخ‌گویی (<code>max_responses_per_day</code>) را کاهش دهید</li>
+</ul>
+</div>
+
+<div class="step">
+<h4><span class="tag tag-red">خطا</span>خطای ۴۰۱ - احراز هویت ناموفق</h4>
+<p>توکن ورود معتبر نیست.</p>
+<p><b>راه‌حل:</b></p>
+<ul>
+<li>با نام کاربری و رمز درست وارد شوید</li>
+<li>توکن را تازه‌سازی کنید: <code>POST /api/auth/refresh</code></li>
+<li>توکن منقضی شده است؛ دوباره وارد شوید</li>
+<li>اگر مشکل ادامه داشت، رمز عبور را تغییر دهید</li>
+</ul>
+</div>
+
+<div class="step">
+<h4><span class="tag tag-red">خطا</span>خطای اتصال تلگرام</h4>
+<p>امکان اتصال به تلگرام وجود ندارد.</p>
+<p><b>علل:</b></p>
+<ul>
+<li><code>TELEGRAM_API_ID</code> یا <code>TELEGRAM_API_HASH</code> اشتباه است</li>
+<li>شماره موبایل وارد نشده</li>
+<li>سرور تلگرام در دسترس نیست</li>
+<li>پروکسی لازم است</li>
+</ul>
+<p><b>راه‌حل:</b></p>
+<ul>
+<li><code>api_id</code> و <code>api_hash</code> را از <a href="https://my.telegram.org" target="_blank">my.telegram.org</a> بررسی کنید</li>
+<li><code>TELEGRAM_PHONE</code> را در فایل <code>.env</code> وارد کنید</li>
+<li>اتصال را دوباره امتحان کنید: <code>POST /api/account/session/connect</code></li>
+<li>لاگ‌ها را بررسی کنید: <code>storage/logs/app.log</code></li>
+</ul>
+</div>
+
+<div class="step">
+<h4><span class="tag tag-yellow">هشدار</span>حساب بن شد (Banned/Restricted)</h4>
+<p>تلگرام حساب شما را محدود کرده است.</p>
+<p><b>علت:</b> اسپم، استفاده غیرمجاز از API، فعالیت سنگین.</p>
+<p><b>راه‌حل:</b></p>
+<ul>
+<li>فوراً <b>EMERGENCY STOP</b> را فعال کنید</li>
+<li>بخش <b>مرکز امنیت</b> را بررسی کنید</li>
+<li>۲۴ تا ۴۸ ساعت صبر کنید</li>
+<li>اگر ادامه داد، <a href="https://telegram.org/support" target="_blank">پشتیبانی تلگرام</a> را بزنید</li>
+</ul>
+</div>
+
+<h3>🟡 مشکلات دیتابیس</h3>
+
+<div class="step">
+<h4><span class="tag tag-red">خطا</span>خطای دیتابیس (sqlite/permission)</h4>
+<p>دسترسی به فایل دیتابیس وجود ندارد.</p>
+<p><b>راه‌حل:</b></p>
+<ul>
+<li>پوشه <code>storage/</code> وجود داشته باشد: <code>mkdir -p storage</code></li>
+<li>مجوز فایل‌ها را بررسی کنید: <code>chmod -R 755 storage/</code></li>
+<li>مایگریتن اجرا کنید: <code>python -m backend.app.main migrate</code></li>
+<li>اگر فایل SQLite خراب است، پشتیبان بگیرید و فایل را حذف و مایگریتن مجدد کنید</li>
+</ul>
+</div>
+
+<div class="step">
+<h4><span class="tag tag-yellow">هشدار</span>جدول‌ها ایجاد نشده‌اند</h4>
+<p>مایگریتن اجرا نشده.</p>
+<p><b>راه‌حل:</b></p>
+<pre><code>python -m backend.app.main migrate</code></pre>
+<p>اگر باز هم خطا داد، کل دیتابیس را ریست کنید:</p>
+<pre><code>rm storage/database.db
+python -m backend.app.main migrate</code></pre>
+</div>
+
+<div class="step">
+<h4><span class="tag tag-green">معمولی</span>عدم تطابق نسخه دیتابیس</h4>
+<p>مدل‌ها تغییر کرده‌اند اما مایگریتن اجرا نشده.</p>
+<p><b>راه‌حل:</b></p>
+<pre><code>python -m backend.app.main makemigration -m "update models"
+python -m backend.app.main migrate</code></pre>
+</div>
+
+<h3>🔵 مشکلات ردیس و صف کار</h3>
+
+<div class="step">
+<h4><span class="tag tag-red">خطا</span>خطای اتصال Redis</h4>
+<p>ردیس در دسترس نیست.</p>
+<p><b>راه‌حل:</b></p>
+<ul>
+<li>بررسی کنید ردیس اجرا شده: <code>redis-cli ping</code> (باید <code>PONG</code> برگرداند)</li>
+<li>آدرس ردیس در فایل <code>.env</code> درست باشد</li>
+<li>با داکر: <code>docker-compose ps</code> بررسی کنید</li>
+<li>اگر ردیس روشن نیست: <code>docker-compose up -d redis</code></li>
+</ul>
+</div>
+
+<div class="step">
+<h4><span class="tag tag-yellow">هشدار</span>ورکر Celery اجرا نمی‌شود</h4>
+<p>کارهای زمان‌بندی و پخش انبوه انجام نمی‌شوند.</p>
+<p><b>راه‌حل:</b></p>
+<ul>
+<li>ردیس را بررسی کنید (بخش بالا)</li>
+<li>ورکر را اجرا کنید: <code>celery -A worker.tasks.celery_app worker -l info</code></li>
+<li>با داکر: <code>docker-compose up -d worker</code></li>
+</ul>
+</div>
+
+<h3>🟢 مشکلات فرانت‌اند</h3>
+
+<div class="step">
+<h4><span class="tag tag-red">خطا</span>داشبورد سفید / خالی / خطای ۴۰۴</h4>
+<p>فرانت‌اند ساخته نشده است.</p>
+<p><b>راه‌حل:</b></p>
+<pre><code>cd frontend
+npm install
+npm run build</code></pre>
+<p>سپس سرور را ریستارت کنید.</p>
+</div>
+
+<div class="step">
+<h4><span class="tag tag-yellow">هشدار</span>خطای CORS (دسترسی ممنوع)</h4>
+<p>فرانت‌اند نمی‌تواند به API متصل شود.</p>
+<p><b>راه‌حل:</b></p>
+<ul>
+<li>پورت فرانت‌اند (<code>3000</code> یا <code>5173</code>) در <code>ALLOWED_ORIGINS</code> <code>.env</code> اضافه شود</li>
+<li>مثال: <code>ALLOWED_ORIGINS=http://localhost:5173,http://localhost:3000</code></li>
+</ul>
+</div>
+
+<div class="step">
+<h4><span class="tag tag-green">معمولی</span>زبان RTL فارسی نشان نمی‌دهد</h4>
+<p>زبان در تنظیمات تغییر نکرده.</p>
+<p><b>راه‌حل:</b></p>
+<ul>
+<li>به بخش <b>تنظیمات</b> بروید و زبان را روی <code>fa (فارسی)</code> تغییر دهید</li>
+<li>مرورگر را رفرش کنید</li>
+</ul>
+</div>
+
+<h3>🔧 مشکلات عمومی</h3>
+
+<div class="step">
+<h4><span class="tag tag-red">خطا</span>خطای ModuleNotFoundError</h4>
+<p>ماژول‌های پایتون پیدا نشدند.</p>
+<p><b>راه‌حل:</b></p>
+<pre><code>pip install -e ".[dev,ai,media]"
+pip install -r requirements.txt</code></pre>
+<p>مطمئن شوید در ریشه پروژه هستید.</p>
+</div>
+
+<div class="step">
+<h4><span class="tag tag-yellow">هشدار</span>خطای <code>settings.LOGS_DIR</code> یا <code>settings.FRONTEND_DIR</code></h4>
+<p>بایگ‌های قبلی از اختصاص ویژگی به Pydantic ساختار مربوطه.</p>
+<p><b>راه‌حل:</b> نسخه فعلی (v1.0.0) این مشکل را رفع کرده است. اگر باز هم دیدید، کد را به‌روزرسانی کنید:</p>
+<pre><code>git pull origin main
+pip install -e ".[dev]"</code></pre>
+</div>
+
+<div class="step">
+<h4><span class="tag tag-blue">اطلاعات</span>خطای FFmpeg یا Whisper</h4>
+<p>ابزارهای تبدیل رسانه نصب نیستند.</p>
+<p><b>راه‌حل:</b></p>
+<ul>
+<li>FFmpeg نصب باشد: <code>sudo apt install ffmpeg</code></li>
+<li>لینوکس: <code>sudo apt install ffmpeg</code></li>
+<li>ویندوز: دانلود از <a href="https://ffmpeg.org" target="_blank">ffmpeg.org</a></li>
+</ul>
+</div>
+
+<h3>📊 بررسی لاگ‌ها</h3>
+<p>در بیشتر موارد، جواب مشکل در لاگ‌ها موجود است:</p>
+<pre><code>cat storage/logs/app.log | tail -100</code></pre>
+<p>یا از داشبورد، به بخش <b>لاگ‌ها</b> بروید.</p>
+
+<h3>❓ سؤال‌های متداول (FAQ)</h3>
+<table>
+<thead><tr><th>سؤال</th><th>جواب</th></tr></thead>
+<tbody>
+<tr><td>می‌توانم بدون Redis استفاده کنم؟</td><td>بله، بخش‌های اصلی (آرشیو، پیام‌ها) بدون ردیس کار می‌کنند. اما زمان‌بندی و پخش انبوه نیاز به ردیس دارند.</td></tr>
+<tr><td>چرا خطای FloodWait دارم؟</td><td>تلگرام محدودیت ارسال دارد. از Emergency Stop استفاده کنید و صبر کنید.</td></tr>
+<tr><td>داشبورد رنگی نمی‌شود؟</td><td>فرانت‌اند ساخته نشده. <code>cd frontend && npm install && npm run build</code> اجرا کنید.</td></tr>
+<tr><td>کدام دیتابیس پیشنهاد می‌شود؟</td><td>SQLite برای تست و توسعه، PostgreSQL برای تولید.</td></tr>
+<tr><td>چگونه رمز عبور ادمین را تغییر دهم؟</td><td>از بخش <b>تنظیمات</b> → <b>تغییر رمز عبور</b> یا دستور: <code>python -m backend.app.main init-admin</code></td></tr>
+<tr><td>آیا استفاده از سلف‌بات تخلف تلگرام است؟</td><td>تلگرام استفاده از userbot را محدود می‌کند. این پلتفرم شامل قابلیت‌های حفاظتی مانند آرام‌سازی حساب و Emergency Stop است.</td></tr>
+</tbody>
+</table>
+
+<div class="ok-box">
+<b>✅ اگر مشکل همچنان وجود داشت:</b> لاگ‌ها را بررسی کنید (<code>storage/logs/app.log</code>) یا بخش <b>لоги</b> داشبورد را ببینید. اکثر مشکلات در آنجا توضیح داده شده‌اند.
+</div>
+
+<div class="footer">
+<p>Telegram Self-Bot / Account Management Platform · راهنمای عیب‌یابی · v1.0.0</p>
+<p>MIT License</p>
+</div>
+
+</div>
+</body>
+</html>

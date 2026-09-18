@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ویژگی‌ها و قابلیت‌ها - تلگرام سلف-بات</title>
+<style>
+:root{--bg:#0f0f23;--bg2:#1a1a2e;--bg3:#16213e;--text:#e4e4f0;--text2:#a0a0b8;--text3:#6b6b80;--accent:#6c5ce7;--accent2:#5a4bd1;--ok:#00b894;--warn:#fdcb6e;--danger:#e74c3c;--info:#74b9ff;--border:#2d2d44;--font:-apple-system,BlinkMacSystemFont,'Segoe UI',Tahoma,sans-serif;--mono:'Cascadia Code',Consolas,monospace}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.8;font-size:15px}code{font-family:var(--mono);background:#0b0b1c;border:1px solid var(--border);padding:2px 8px;border-radius:6px;font-size:0.9em;color:var(--warn)}pre{background:#0b0b1c;border:1px solid var(--border);border-radius:8px;padding:16px;overflow-x:auto;margin:14px 0;font-size:0.85rem;color:var(--text)}pre code{background:none;border:none;padding:0;color:inherit}
+.topbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:100}
+.topbar h1{font-size:1.3rem;background:linear-gradient(135deg,var(--accent),#a29bfe);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.topbar a{color:var(--info);text-decoration:none;font-size:0.85rem}
+.topbar a:hover{text-decoration:underline}
+.container{max-width:1000px;margin:0 auto;padding:24px}
+h2{font-size:1.5rem;margin:32px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--accent);display:flex;align-items:center;gap:10px}
+h3{font-size:1.15rem;margin:20px 0 8px;color:var(--accent)}
+p{margin:8px 0;color:var(--text2)}
+ul{margin:8px 0 8px 24px;color:var(--text2)}li{margin:4px 0}
+.grid{display:grid;gap:16px;margin:16px 0}
+.grid-2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.grid-3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.grid-4{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;margin:12px 0;transition:transform .2s}
+.card:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.4)}
+.tag{display:inline-block;padding:3px 12px;border-radius:20px;font-size:0.75rem;font-weight:700;margin-bottom:8px}
+.tag-green{background:rgba(0,184,148,0.15);color:var(--ok)}
+.tag-blue{background:rgba(116,185,255,0.15);color:var(--info)}
+.tag-purple{background:rgba(108,92,231,0.15);color:var(--accent)}
+.tag-yellow{background:rgba(253,203,110,0.15);color:var(--warn)}
+.tag-red{background:rgba(231,76,60,0.15);color:var(--danger)}
+.tag-orange{background:rgba(243,156,18,0.15);color:#f39c12}
+.icon{font-size:2rem;margin-bottom:10px}
+.feature-card h3{color:var(--text);margin-bottom:6px}
+.feature-card p{font-size:0.88rem}
+.warn-box{background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:10px;padding:16px;margin:16px 0;color:var(--danger)}
+.ok-box{background:rgba(0,184,148,0.1);border:1px solid rgba(0,184,148,0.3);border-radius:10px;padding:16px;margin:16px 0;color:var(--ok)}
+.info-box{background:rgba(108,92,231,0.1);border:1px solid rgba(108,92,231,0.3);border-radius:10px;padding:16px;margin:16px 0;color:var(--info)}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:0.9rem}th{background:var(--bg3);text-align:right;padding:10px 14px;font-size:0.8rem;color:var(--text2);border-bottom:2px solid var(--border)}td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text2)}tr:hover td{background:var(--bg3)}
+.footer{margin-top:40px;padding:20px;border-top:1px solid var(--border);text-align:center;color:var(--text3);font-size:0.8rem}
+@media(max-width:700px){.container{padding:12px}.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="topbar">
+<h1>✨ ویژگی‌ها و قابلیت‌ها</h1>
+<a href="index.html">🏠 صفحه اصلی</a>
+<a href="install.html">📖 نصب</a>
+<a href="user-guide.html">📗 راهنمای کار</a>
+<a href="troubleshooting.html">🧯 عیب‌یابی</a>
+</div>
+<div class="container">
+
+<h2>📌 خلاصه</h2>
+<div class="ok-box">
+تلگرام سلف-بات پلتفرمی حرفه‌ای، ماژولار و Production-Ready برای مدیریت کامل اکانت تلگرام شماست. شامل ۲۰+ ماژول، ۵۰+ endpoint API، پشتیبانی از فارسی و انگلیسی، و قابلیت‌های روزآمد هوش مصنوعی.
+</div>
+
+<h2>🏗 معماری سیستم</h2>
+<div class="grid grid-3">
+<div class="card"><div class="icon">🧩</div><h3 class="feature-card-title">بک‌اند (FastAPI)</h3><p class="feature-card-text">پایتون ۳.۱۱+، REST API، WebSocket، SQLAlchemy ۲.۰، Pydantic v2</p></div>
+<div class="card"><div class="icon">📱</div><h3 class="feature-card-title">فرانت‌اند (Vue 3)</h3><p class="feature-card-text">Vue 3 + TypeScript + Pinia + Vue Router، پشتیبانی کامل RTL</p></div>
+<div class="card"><div class="icon">🤖</div><h3 class="feature-card-title">تلگرام انجین (Telethon)</h3><p class="feature-card-text">MTProto، مدیریت سشن، پردازش آپدیت، مدیریت FloodWait</p></div>
+<div class="card"><div class="icon">⚙️</div><h3 class="feature-card-title">صف کار (Celery + Redis)</h3><p class="feature-card-text">Celery worker + beat، Redis cache و broker</p></div>
+<div class="card"><div class="icon">🗄</div><h3 class="feature-card-title">دیتابیس</h3><p class="feature-card-text">SQLite (توسعه) / PostgreSQL / MySQL، Alembic migration</p></div>
+<div class="card"><div class="icon">🐳</div><h3 class="feature-card-title">داکر</h3><p class="feature-card-text">Docker + Docker Compose، ساخت ایمیج، deployment</p></div>
+</div>
+
+<h2>💬 بخش‌های اصلی داشبورد</h2>
+<table>
+<thead><tr><th>بخش</th><th>توضیح</th><th>وضعیت</th></tr></thead>
+<tbody>
+<tr><td><b>داشبورد اصلی</b></td><td>آمار زنده، وضعیت سیستم، توقف اضطراری</td><td><span class="tag tag-green">فعال</span></td></tr>
+<tr><td><b>پیام‌ها</b></td><td>آرشیو، جستجو، فیلتر، خروجی (JSON/HTML/CSV)</td><td><span class="tag tag-green">فعال</span></td></tr>
+<tr><td><b>آرشیو رسانه</b></td><td>عکس، ویدیو، صدا، سند، گیف، استیکر</td><td><span class="tag tag-green">فعال</span></td></tr>
+<tr><td><b>پیام‌های حذف‌شده</b></td><td>ثبت رویدادی محتوای حذف‌شده</td><td><span class="tag tag-green">فعال</span></td></tr>
+<tr><td><b>استوری‌ها</b></td><td>آرشیو خودکار هر ۶ ساعت</td><td><span class="tag tag-green">فعال</span></td></tr>
+<tr><td><b>مانیتور پروفایل</b></td><td>ثبت تغییرات نام، یوزرنیم، بیو</td><td><span class="tag tag-green">فعال</span></td></tr>
+<tr><td><b>پاسخ خودکار</b></td><td>۶ نوع محرک، پیشرفته، ساعت کاری</td><td><span class="tag tag-green">فعال</span></td></tr>
+<tr><td><b>دوستان / دشمنان</b></td><td>دسته‌بندی، اولویت، عمل خودکار</td><td><span class="tag tag-green">فعال</span></td></tr>
+<tr><td><b>بکاپ‌ها</b></td><td>کامل/پیام/رسانه، رمزگذاری، بازیابی</td><td><span class="tag tag-green">فعال</span></td></tr>
+<tr><td><b>گروه‌ها</b></td><td>مدیریت کامل گروه، ضداسپم، ولبکام</td><td><span class="tag tag-green">فعال</span></td></tr>
+<tr><td><b>کانال‌ها</b></td><td>پست زمان‌بندی، نظرات، آمار</td><td><span class="tag tag-green">فعال</span></td></tr>
+<tr><td><b>مرکز امنیت</b></td><td>نشست، رویداد، توقف اضطراری، لاگ</td><td><span class="tag tag-green">فعال</span></td></tr>
+<tr><td><b>زمان‌بندی</b></td><td>Cron، interval، once، task بیش از ۱۰ نوع</td><td><span class="tag tag-green">فعال</span></td></tr>
+<tr><td><b>پخش انبوه</b></td><td>Rate limit، pause/resume/cancel، پیشرفت</td><td><span class="tag tag-green">فعال</span></td></tr>
+<tr><td><b>تکرار پیام</b></td><td>تکرار دوره‌ای، سقف، cooldown</td><td><span class="tag tag-green">فعال</span></td></tr>
+<tr><td><b>آمار</b></td><td>خطی/ستونی/دایره‌ای، ۹۰ روز نگهداری</td><td><span class="tag tag-green">فعال</span></td></tr>
+<tr><td><b>تبدیل رسانه</b></td><td>متن↔صد، ویدیو↔گرد، Whisper STT</td><td><span class="tag tag-yellow">نیاز به FFmpeg</span></td></tr>
+<tr><td><b>گردش کار</b></td><td>بصری، درگ و لینک، اجرای خودکار</td><td><span class="tag tag-green">فعال</span></td></tr>
+<tr><td><b>لاگ‌ها</b></td><td>ساختاریافته، فیلتر بر اساس نوع</td><td><span class="tag tag-green">فعال</span></td></tr>
+<tr><td><b>سلامت سیستم</b></td><td>CPU، RAM، دیسک، دیتابیس، تلگرام</td><td><span class="tag tag-green">فعال</span></td></tr>
+<tr><td><b>جستجوی سراسری</b></td><td>پیام، رسانه، مخاطب، چت، استوری</td><td><span class="tag tag-green">فعال</span></td></tr>
+<tr><td><b>اعلان‌ها</b></td><td>مرکز اعلان با تیپ و شدت</td><td><span class="tag tag-green">فعال</span></td></tr>
+</tbody>
+</table>
+
+<h2>🧠 ویژگی‌های جدید و روزآمد (Trending Features)</h2>
+
+<div class="card">
+<h3><span class="tag tag-green">🔥 TRENDING</span>اتوماسیون چت هوش مصنوعی</h3>
+<p>معادل قابلیت Chat Automation تلگرام: اتصال AI به پروفایل شما برای پاسخ‌گویی خودکار. شخصیت‌ها (دوستانه، حرفه‌ای، فروشگاهی، پشتیبانی)، حداکثر پاسخ در روز، ساعت کاری، و پشتیبانی از چندین پرووایدر AI.</p>
+<p><b>API:</b> <code>POST /automation/chat-automation/setup</code></p>
+</div>
+
+<div class="card">
+<h3><span class="tag tag-green">🔥 TRENDING</span>آرام‌سازی حساب (Account Warming)</h3>
+<p>برای جلوگیری از محدود شدن حساب، این سیستم رفتارهای انسانی شبیه (تایپ، خواندن، مشاهده استوری، مرور فید) را به‌تدریج و در ۴ سطح (مبتدی تا کارشناس) اجرا می‌کند.</p>
+<p><b>API:</b> <code>POST /automation/warming/start</code></p>
+</div>
+
+<div class="card">
+<h3><span class="tag tag-green">🔥 TRENDING</span>مکالمات عصبی (Neuro Dialogs)</h3>
+<p>مکالمه با AI با زمینه و تاریخچه مکالمات. شخصیت‌های مختلف شامل دوزبانه فارسی/عربی. پاسخ‌ها طبیعی و شبیه انسان هستند.</p>
+<p><b>API:</b> <code>POST /automation/neuro-dialog/create</code></p>
+</div>
+
+<div class="card">
+<h3><span class="tag tag-green">🔥 TRENDING</span>فوروارد هوشمند</h3>
+<p>فوروارد پیام با فیلتر کلمات کلیدی، لیست سفید ارسال‌کننده، پیشوند/پسوند، و حذف علامت فوروارد.</p>
+<p><b>API:</b> <code>POST /automation/smart-forward/create</code></p>
+</div>
+
+<div class="card">
+<h3><span class="tag tag-green">🔥 TRENDING</span>مدیریت چند حساب</h3>
+<p>مدیریت چندین اکانت تلگرام از یک داشبورد. هر حساب با مشخصات API خودش و تنظیمات جداگانه.</p>
+<p><b>API:</b> <code>POST /automation/multi-account/add</code></p>
+</div>
+
+<div class="card">
+<h3><span class="tag tag-green">🔥 TRENDING</span>پارسر کاربران</h3>
+<p>استخراج لیست اعضا و مخاطبین از گروه‌ها و کانال‌ها برای پخش انبوه و هدف‌گیری.</p>
+</div>
+
+<div class="card">
+<h3><span class="tag tag-purple">🤖 AI</span>چندین پرووایدر AI</h3>
+<p>پشتیبانی از OpenAI، Google Gemini، DeepSeek، OpenRouter، و مدل‌های محلی (Ollama). یک رابط کاری مشترک برای تعویض آسان پرووایدر.</p>
+</div>
+
+<div class="card">
+<h3><span class="tag tag-purple">🤖 AI</span>شناسایی گفتار</h3>
+<p>تبدیل صدا به متن با Whisper و متن به صدا با FFmpeg.</p>
+</div>
+
+<h2>🔒 امنیت</h2>
+<div class="grid grid-2">
+<div class="card"><h3>حفاظت‌های داخلی</h3><ul>
+<li><span class="tag tag-green">✅</span> JWT با ۳۰ دقیقه توکن + ۷ روز رفرش</li>
+<li><span class="tag tag-green">✅</span> رمزگذاری bcrypt</li>
+<li><span class="tag tag-green">✅</span> محدودسازی نرخ (۳۰ درخواست/دقیقه/IP)</li>
+<li><span class="tag tag-green">✅</span> لاگ بازرسی کامل</li>
+<li><span class="tag tag-green">✅</span> رمزگذاری داده در حالت استراحت</li>
+<li><span class="tag tag-green">✅</span> توقف اضطراری</li>
+<li><span class="tag tag-green">✅</span> محدودیت ضربات (Anti-Abuse)</li>
+<li><span class="tag tag-green">✅</span> هدرهای امنیتی HTTP</li>
+</ul></div>
+<div class="card"><h3>توصیه‌های سخت‌افزاری</h3><ul>
+<li><span class="tag tag-yellow">⚠️</span> کلیدهای محرمانه تصادفی</li>
+<li><span class="tag tag-yellow">⚠️</span> تغییر فوری رمز ادمین</li>
+<li><span class="tag tag-yellow">⚠️</span> PostgreSQL در تولید</li>
+<li><span class="tag tag-yellow">⚠️</span> پروکسی معکوس + TLS</li>
+<li><span class="tag tag-yellow">⚠️</span> بررسی هفتگی لاگ‌ها</li>
+</ul></div>
+</div>
+
+<h2>🔌 سیستم افزونه‌ها</h2>
+<p>هر ماژول به‌صورت افزونه با <code>manifest.json</code>، <code>config</code>، <code>routes</code>، <code>services</code>، <code>events</code> و <code>tests</code> طراحی شده است.</p>
+<table>
+<thead><tr><th>افزونه</th><th>توضیح</th></tr></thead>
+<tbody>
+<tr><td><span class="tag tag-purple">autoreply</span></td><td>موتور پاسخ خودکار</td></tr>
+<tr><td><span class="tag tag-purple">backup</span></td><td>سیستم بکاپ و بازیابی</td></tr>
+<tr><td><span class="tag tag-purple">media</span></td><td>آرشیو و مدیریت رسانه</td></tr>
+<tr><td><span class="tag tag-purple">scheduler</span></td><td>زمان‌بندی وظایف</td></tr>
+<tr><td><span class="tag tag-purple">statistics</span></td><td>آمار و تحلیل</td></tr>
+<tr><td><span class="tag tag-purple">security</span></td><td>امنیت و مبارزه با اسپم</td></tr>
+<tr><td><span class="tag tag-purple">converter</span></td><td>تبدیل رسانه</td></tr>
+</tbody>
+</table>
+
+<h2>🌐 API Reference</h2>
+<p>تمام endpointها در مسیر <code>/api</code> میزبانی می‌شوند. مستندات تعاملی در <code>/api/docs</code> (Swagger) و <code>/api/redoc</code> (ReDoc) در دسترس هستند.</p>
+
+<h3>Authentication</h3>
+<div class="pre-box">POST /api/auth/register — ثبت‌نام<br>
+POST /api/auth/login — ورود<br>
+POST /api/auth/refresh — تازه‌سازی توکن<br>
+GET /api/auth/me — اطلاعات کاربر<br>
+POST /api/auth/change-password — تغییر رمز<br>
+Authorization: Bearer &lt;access_token&gt;</div>
+
+<h3>Account &amp; Telegram</h3>
+<div class="pre-box">GET /api/account — آمار حساب<br>
+GET /api/account/session — وضعیت سشن<br>
+POST /api/account/session — ایجاد سشن<br>
+POST /api/account/session/connect — اتصال<br>
+GET /api/account/contacts — مخاطبین<br>
+GET /api/account/chats — چت‌ها<br>
+GET /api/account/info — اطلاعات اکانت</div>
+
+<h3>Messages &amp; Media</h3>
+<div class="pre-box">GET /api/messages/ — پیام‌ها با جستجو و فیلتر<br>
+GET /api/messages/deleted — پیام‌های حذف‌شده<br>
+POST /api/messages/export — خروجی پیام‌ها<br>
+GET /api/media/ — رسانه‌ها<br>
+GET /api/media/stats/summary — آمار رسانه<br>
+GET /api/media/{id}/download — دانلود</div>
+
+<h3>Auto Reply &amp; Friends &amp; Enemies</h3>
+<div class="pre-box">GET /api/autoreply/ — قوانین پاسخ خودکار<br>
+POST /api/autoreply/ — ایجاد قانون<br>
+PATCH /api/autoreply/{id}/toggle — فعال/غیرفعال<br>
+GET /api/friends/ — دوستان<br>
+POST /api/friends/ — افزودن دوست<br>
+GET /api/enemies/ — دشمنان<br>
+POST /api/enemies/ — افزودن دشمن</div>
+
+<h3>Groups &amp; Channels</h3>
+<div class="pre-box">GET /api/groups/ — لیست گروه‌ها<br>
+GET/POST /api/groups/{id}/management — مدیریت<br>
+GET /api/channels/ — لیست کانال‌ها<br>
+POST /api/channels/{id}/post — پست زمان‌بندی‌شده</div>
+
+<h3>Security</h3>
+<div class="pre-box">GET /api/security/events — رویدادها<br>
+GET /api/security/sessions — نشست‌ها<br>
+PATCH /api/security/events/{id}/resolve — حل<br>
+POST /api/security/alerts/test — تست هشدار</div>
+
+<h3>Backups</h3>
+<div class="pre-box">GET /api/backups/ — لیست بکاپ‌ها<br>
+POST /api/backups/ — ایجاد بکاپ<br>
+GET /api/backups/{id}/download — دانلود<br>
+POST /api/backups/{id}/restore — بازیابی</div>
+
+<h3>Scheduler &amp; Broadcast &amp; Repeater</h3>
+<div class="pre-box">GET /api/scheduler/ — وظایف زمان‌بندی‌شده<br>
+POST /api/scheduler/ — ایجاد<br>
+GET /api/broadcast/ — پخش‌ها<br>
+POST /api/broadcast/{id}/start — شروع<br>
+POST /api/repeater/ — تکرارها<br>
+POST /api/repeater/{id}/start — شروع</div>
+
+<h3>Statistics &amp; Converter</h3>
+<div class="pre-box">GET /api/statistics/account — آمار حساب<br>
+GET /api/converter/formats — فرمت‌های پشتیبانی‌شده<br>
+GET /api/converter/ — وظایف تبدیل</div>
+
+<h3>System &amp; Automation</h3>
+<div class="pre-box">GET /api/system/health — سلامت سیستم<br>
+GET /api/system/config — تنظیمات<br>
+GET /api/system/logs — لاگ‌ها<br>
+POST /api/system/emergency-stop — توقف اضطراری<br>
+GET /api/search/ — جستجوی سراسری<br>
+POST /api/automation/... — اتوماسیون‌های جدید</div>
+
+<h2>🌍 پشتیبانی زبان</h2>
+<div class="card">
+<h3><span class="tag tag-purple">i18n</span>فارسی و انگلیسی</h3>
+<p>سیستم کاملاً دوزبانه با پشتیبانی کامل RTL برای فارسی. تمام نام‌ها، دکمه‌ها و پیام‌ها از فایل‌های ترجمه خوانده می‌شوند.</p>
+<p>زبان از طریق دایرکتوری <span class="tag tag-blue">fa</span> و <span class="tag tag-blue">en</span> تغییر می‌کند.</p>
+</div>
+
+<h2>🎨 ظاهرها (Themes)</h2>
+<div class="grid grid-4">
+<div class="card"><div class="icon">🌙</div><h3>تاریک (Dark)</h3><p>پیش‌فرض، تیره و حرفه‌ای</p></div>
+<div class="card"><div class="icon">☀️</div><h3>روشن (Light)</h3><p>روشن و ساده</p></div>
+<div class="card"><div class="icon">🌌</div><h3>نیمه‌شب (Midnight)</h3><p>تیره با رنگ‌های سرد</p></div>
+<div class="card"><div class="icon">🔮</div><h3>شیشه‌ای (Glass)</h3><p>فروپاشی شیشه‌ای</p></div>
+</div>
+
+<h2>📦 Deployment</h2>
+<div class="grid grid-2">
+<div class="card"><h3><span class="tag tag-green">Linux</span>لینوکس</h3><p><code>install.sh</code> — نصب خودکار با وابستگی‌ها، مایگریتن، و سرویس systemd</p></div>
+<div class="card"><h3><span class="tag tag-green">Windows</span>ویندوز</h3><p><code>install.ps1</code> / <code>install.bat</code> — نصب خودکار ویندوز</p></div>
+<div class="card"><h3><span class="tag tag-green">Docker</span>داکر</h3><p><code>docker-compose.yml</code> — app + worker + beat + Redis با healthchecks</p></div>
+<div class="card"><h3><span class="tag tag-blue">Sistemd</span>سرویس لینوکس</h3><p>سرویس systemd برای اجرای خودکار هنگام بوت</p></div>
+</div>
+
+<h2>🧪 تست‌ها</h2>
+<div class="card">
+<ul>
+<li><span class="tag tag-green">✅</span> تست واحد (Unit Tests) — امنیت، سرویس‌ها</li>
+<li><span class="tag tag-green">✅</span> تست یکپارچه (Integration Tests) — API و دیتابیس</li>
+<li><span class="tag tag-green">✅</span> تست API — تمام endpointها</li>
+<li><span class="tag tag-green">✅</span> تست تلگرام موقت (Mock Tests)</li>
+<li><span class="tag tag-green">✅</span> تست امنیتی</li>
+<li><span class="tag tag-green">✅</span> تست فرانت‌اند</li>
+<li><span class="tag tag-green">✅</span> تست بیلد</li>
+</ul>
+</div>
+
+<div class="info-box">
+<b>📚 مستندات کامل:</b> <code>README.md</code> | <code>INSTALL.md</code> | <code>USER_GUIDE.md</code> | <code>TROUBLESHOOTING.md</code> | <code>docs/ARCHITECTURE.md</code> | <code>docs/SECURITY.md</code>
+</div>
+
+<div class="ok-box">
+<b>✅ آماده!</b> تمام ویژگی‌ها در دسترس هستند.
+<a href="user-guide.html">📗 راهنمای کار &rarr;</a> | <a href="install.html">📖 نصب &rarr;</a> | <a href="troubleshooting.html">🧯 عیب‌یابی &rarr;</a>
+</div>
+
+<div class="footer">
+<p>Telegram Self-Bot / Account Management Platform · ویژگی‌ها و قابلیت‌ها · v1.0.0</p>
+<p>MIT License</p>
+</div>
+
+</div>
+</body>
+</html>

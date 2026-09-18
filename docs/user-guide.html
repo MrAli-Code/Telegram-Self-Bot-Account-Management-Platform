@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>راهنمای کار - تلگرام سلف-بات</title>
+<style>
+:root{--bg:#0f0f23;--bg2:#1a1a2e;--bg3:#16213e;--text:#e4e4f0;--text2:#a0a0b8;--text3:#6b6b80;--accent:#6c5ce7;--accent2:#5a4bd1;--ok:#00b894;--warn:#fdcb6e;--danger:#e74c3c;--info:#74b9ff;--border:#2d2d44;--font:-apple-system,BlinkMacSystemFont,'Segoe UI',Tahoma,sans-serif;--mono:'Cascadia Code',Consolas,monospace}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.8;font-size:15px}code{font-family:var(--mono);background:#0b0b1c;border:1px solid var(--border);padding:2px 8px;border-radius:6px;font-size:0.9em;color:var(--warn)}pre{background:#0b0b1c;border:1px solid var(--border);border-radius:8px;padding:16px;overflow-x:auto;margin:14px 0;font-size:0.85rem;color:var(--text)}pre code{background:none;border:none;padding:0;color:inherit}
+.topbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:100}
+.topbar h1{font-size:1.3rem;background:linear-gradient(135deg,var(--accent),#a29bfe);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.topbar a{color:var(--info);text-decoration:none;font-size:0.85rem}
+.topbar a:hover{text-decoration:underline}
+.container{max-width:960px;margin:0 auto;padding:24px}
+h2{font-size:1.5rem;margin:32px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--accent);display:flex;align-items:center;gap:10px}
+h3{font-size:1.15rem;margin:20px 0 8px;color:var(--accent)}
+p{margin:8px 0;color:var(--text2)}
+ul{margin:8px 0 8px 24px;color:var(--text2)}li{margin:4px 0}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;margin:12px 0}
+.tag{display:inline-block;padding:3px 12px;border-radius:20px;font-size:0.75rem;font-weight:700;margin-bottom:8px}
+.tag-green{background:rgba(0,184,148,0.15);color:var(--ok)}
+.tag-blue{background:rgba(116,185,255,0.15);color:var(--info)}
+.tag-purple{background:rgba(108,92,231,0.15);color:var(--accent)}
+.warn-box{background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:10px;padding:16px;margin:16px 0}
+.ok-box{background:rgba(0,184,148,0.1);border:1px solid rgba(0,184,148,0.3);border-radius:10px;padding:16px;margin:16px 0}
+.info-box{background:rgba(108,92,231,0.1);border:1px solid rgba(108,92,231,0.3);border-radius:10px;padding:16px;margin:16px 0}
+.step{padding:16px 20px;background:var(--bg2);border-right:4px solid var(--accent);border-radius:0 10px 10px 0;margin-bottom:14px}
+.step h4{color:var(--text);margin-top:0}
+.pre-box{background:#0b0b1c;border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0;font-family:var(--mono);font-size:0.85rem;color:var(--warn);overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:0.9rem}th{background:var(--bg3);text-align:right;padding:10px 14px;font-size:0.8rem;color:var(--text2);border-bottom:2px solid var(--border)}td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text2)}tr:hover td{background:var(--bg3)}
+.footer{margin-top:40px;padding:20px;border-top:1px solid var(--border);text-align:center;color:var(--text3);font-size:0.8rem}
+@media(max-width:700px){.container{padding:12px}}
+</style>
+</head>
+<body>
+<div class="topbar">
+<h1>📗 راهنمای کار</h1>
+<a href="index.html">🏠 صفحه اصلی</a>
+<a href="install.html">📖 نصب</a>
+<a href="troubleshooting.html">🧯 عیب‌یابی</a>
+<a href="features.html">✨ ویژگی‌ها</a>
+</div>
+<div class="container">
+
+<h2>🏠 ورود به داشبورد</h2>
+<div class="step">
+<h4>۱. باز کردن داشبورد</h4><p>در مرورگر آدرس <code>http://localhost:8000</code> را باز کنید.</p></div>
+<div class="step"><h4>۲. ورود</h4>
+<p>با نام کاربری <code>admin</code> و رمز <code>admin123</code> وارد شوید.</p>
+<p>اگر تغییر داده‌اید، با اطلاعات جدید وارد شوید.</p></div>
+<div class="step"><h4>۳. اتصال تلگرام</h4>
+<p>به بخش <b>تنظیمات</b> بروید، <code>api_id</code> و <code>api_hash</code> خود را وارد کنید و دکمه <b>اتصال</b> را بزنید.</p></div>
+</div>
+
+<h2>📊 داشبورد اصلی</h2>
+<p>داشبورد اصلی شامل آمار زنده از کل سیستم است:</p>
+<div class="card">
+<h4>آمار نمایش داده شده:</h4>
+<ul>
+<li><b>تعداد چت‌ها</b> — کل مکالمات شما</li>
+<li><b>گروه‌ها</b> — گروه‌هایی که عضو هستید</li>
+<li><b>کانال‌ها</b> — کانال‌های مدیریت‌شده</li>
+<li><b>پیام‌ها</b> — تعداد پیام‌های آرشیو‌شده</li>
+<li><b>رسانه‌ها</b> — تعداد فایل‌های آرشیو‌شده</li>
+<li><b>مخاطبین</b> — تعداد تماس‌ها</li>
+<li><b>استوری‌ها</b> — استوری‌های آرشیو‌شده</li>
+<li><b>پیام‌های حذف‌شده</b> — تعداد پیام‌های ثبت‌شده قبل از حذف</li>
+</ul>
+</div>
+<p>همچنین دکمه <b>توقف اضطراری (EMERGENCY STOP)</b> در بالای داشبورد وجود دارد که تمام اتوماسیون‌ها را متوقف می‌کند.</p>
+
+<h2>💬 بخش پیام‌ها</h2>
+<div class="step">
+<h4>جستجوی پیام‌ها</h4><p>از کادر جستجو در بالای جدول، متن را تایپ کنید تا پیام‌های مربوطه پیدا شوند.</p></div>
+<div class="step"><h4>فیلتر بر اساس چت</h4><p>می‌توانید پیام‌ها را بر اساس چت خاص، نوع رسانه، یا بازه زمانی فیلتر کنید.</p></div>
+<div class="step"><h4>خروجی پیام‌ها</h4>
+<p>از منوی کناری، می‌توانید پیام‌ها را به فرمت‌های زیر خروجی بگیرید:</p>
+<ul>
+<li><b>JSON</b> — برای پردازش برنامه‌نویسی</li>
+<li><b>TXT</b> — متن ساده</li>
+<li><b>HTML</b> — برای نمایش در مرورگر</li>
+<li><b>CSV</b> — برای اکسل و جداول</li>
+</ul>
+</div>
+<div class="step"><h4>پیام‌های حذف‌شده</h4>
+<p>بخش <b>پیام‌های حذف‌شده</b> محتوای اصلی پیام‌هایی که قبل از حذف دیده شده‌اند را نشان می‌دهد.</p>
+</div>
+
+<h2>🖼️ آرشیو رسانه</h2>
+<div class="step">
+<h4>نوع‌های رسانه</h4>
+<p>پلتفرم انواع زیر را آرشیو می‌کند:</p>
+<ul>
+<li>عکس (Photo)</li>
+<li>ویدیو (Video)</li>
+<li>ویدیو گرد (Video Message)</li>
+<li>صدا (Voice)</li>
+<li>فایل صوتی (Audio)</li>
+<li>سند (Document)</li>
+<li>گیف (GIF)</li>
+<li>استیکر (Sticker)</li>
+<li>انیمیشن (Animation)</li>
+</ul>
+</div>
+<div class="step"><h4>شناسایی تکراری</h4><p>هش SHA-256 هر فایل بررسی می‌شود تا فایل‌های تکراری شناسایی و اطلاعات آنها نمایش داده شوند.</p></div>
+<div class="step"><h4>دانلود رسانه</h4><p>روی دکمه <b>Download</b> کنار هر فایل، فایل مورد نظر دانلود می‌شود.</p></div>
+</div>
+
+<h2>🤖 پاسخ خودکار (Auto Reply)</h2>
+<p>سیستم پاسخ خودکار امکان ایجاد قوانین پاسخ‌گویی بر اساس شرایط مختلف را می‌دهد.</p>
+<div class="step">
+<h4>ایجاد قانون جدید</h4>
+<div class="pre-box">۱. به بخش «پاسخ خودکار» بروید<br>
+۲. دکمه «ایجاد قانون» را بزنید<br>
+۳. نوع محرک را انتخاب کنید:<br>
+   &nbsp;&nbsp;• تطابق دقیق (Exact Match)<br>
+   &nbsp;&nbsp;• شامل (Contains)<br>
+   &nbsp;&nbsp;• شروع با (Starts With)<br>
+   &nbsp;&nbsp;• پایان با (Ends With)<br>
+   &nbsp;&nbsp;• عبارت باقاعده (Regex)<br>
+   &nbsp;&nbsp;• دستور (Command)<br>
+۴. متن پاسخ را وارد کنید<br>
+۵. اولویت و تأخیر را تنظیم کنید<br>
+۶. قانون را فعال کنید</div>
+</div>
+<div class="step">
+<h4>مثال عملی</h4>
+<div class="pre-box">محرک: "سلام"
+پاسخ: "سلام، خوش آمدید! 😊 چطور می‌توانم کمکتان کنم؟"
+نوع: تطابق دقیق
+تأخیر: ۲ ثانیه
+محدوده: همه چت‌ها</div>
+</div>
+<div class="step"><h4>تنظیمات پیشرفته</h4>
+<ul>
+<li><b>ساعت کاری</b> — فقط در ساعات مشخص فعال باشد</li>
+<li>لیست سفید/سیاه کاربران</li>
+<li>محدوده چت (خصوصی، گروه)</li>
+<li>اولویت قوانین</li>
+<li>تعداد حداکثر پاسخ در روز</li>
+</ul>
+</div>
+</div>
+
+<h2>🧠 هوش مصنوعی (Chat Automation & Neuro Dialogs)</h2>
+<div class="step">
+<h4>اتصال AI به پروfile</h4>
+<p>در بخش <b>اتوماسیون &rarr; هوش مصنوعی</b>، می‌توانید:</p>
+<ul>
+<li>پرووایدر را انتخاب کنید: <code>OpenAI</code>، <code>Gemini</code>، <code>DeepSeek</code>، <code>Local LLM</code></li>
+<li>کلید API خود را وارد کنید</li>
+<li>سیستم پرامپت را تنظیم کنید (دوستانه، حرفه‌ای، فروشگاهی)</li>
+<li>حداکثر پاسخ در روز را مشخص کنید</li>
+<li>ساعت کاری و زبان را تعیین کنید</li>
+</ul>
+</div>
+<div class="step">
+<h4>ویژگی‌های Neuro Dialogs</h4>
+<ul>
+<li><b>مکالمه با زمینه</b> — AI با توجه به مکالمات قبلی پاسخ می‌دهد</li>
+<li><b>شخصیت‌های مختلف</b> — طبیعی، فروش، پشتیبانی، دوزبانه فارسی/عربی</li>
+<li><b>تأخیر طبیعی</b> — پاسخ‌ها شبیه انسان هستند</li>
+<li><b>پشتیبانی فارسی</b> — پاسخ‌دهی دوزبانه فارسی و انگلیسی</li>
+</ul>
+</div>
+</div>
+
+<h2>🌡️ آرام‌سازی حساب (Account Warming)</h2>
+<p>برای جلوگیری از محدود شدن حساب، حساب شما به‌آرامی فعالیت می‌کند.</p>
+<div class="step">
+<h4>سطوح آرام‌سازی</h4>
+<table>
+<thead><tr><th>سطح</th><th>پیام/روز</th><th>عملیات/ساعت</th><th>دوره آزمایش</th></tr></thead>
+<tbody>
+<tr><td>مبتدی</td><td>۲۰</td><td>۵</td><td>۱۴ روز</td></tr>
+<tr><td>متوسط</td><td>۸۰</td><td>۱۵</td><td>۱۴ روز</td></tr>
+<tr><td>پیشرفته</td><td>۲۰۰</td><td>۳۰</td><td>۱۴ روز</td></tr>
+<tr><td>کارشناس</td><td>۵۰۰</td><td>۶۰</td><td>۱۴ روز</td></tr>
+</tbody>
+</table>
+</div>
+<div class="step"><h4>رفتارهای شبیه انسان</h4>
+<ul>
+<li>تایپ کردن مصنوعی</li>
+<li>خواندن پیام‌ها</li>
+<li>مشاهده استوری‌ها</li>
+<li>مرور فید</li>
+<li>محدودیت ساعات آنلاین بودن</li>
+</ul>
+</div>
+</div>
+
+<h2>📡 پخش انبوه (Broadcast)</h2>
+<div class="step">
+<h4>ایجاد پخش</h4><p>می‌توانید به کاربران، گروه‌ها یا کانال‌های خاص پیام بفرستید.</p></div>
+<div class="step"><h4>مدیریت پخش</h4>
+<ul>
+<li><b>شروع</b> — پخش را شروع کنید</li>
+<li><b>مکث</b> — موقتاً متوقف کنید</li>
+<li><b>ادامه</b> — از جایی که به حالت توقف رسید، ادامه دهید</li>
+<li><b>لغو</b> — پخش را لغو کنید</li>
+</ul>
+</div>
+<div class="step"><h4>محدودیت‌ها</h4>
+<p>سرعت ارسال محدود است تا از FloodWait جلوگیری شود. تأخیر بین هر پیام قابل تنظیم است.</p>
+</div>
+</div>
+
+<h2>⏰ زمان‌بندی (Scheduler)</h2>
+<div class="step">
+<h4>انواع زمان‌بندی</h4>
+<ul>
+<li><b>یکبار</b> — در یک زمان خاص</li>
+<li><b>روزانه</b> — هر روز در یک ساعت</li>
+<li><b>هفتگی</b> — هر هفته</li>
+<li><b>فواصل مشخص</b> — هر ۵ دقیقه، هر ساعت و ...</li>
+<li><b>Cron Expression</b> — زمان‌بندی پیشرفته</li>
+</ul>
+</div>
+<div class="step"><h4>انواع کار</h4>
+<p>از طریق زمان‌بندی می‌توانید ارسال پیام، تغییر نام، بکاپ و ... را برنامه‌ریزی کنید.</p>
+</div>
+</div>
+
+<h2>💾 بکاپ و بازیابی</h2>
+<div class="step">
+<h4>انواع بکاپ</h4>
+<ul>
+<li><b>کامل</b> — همه چیز (پیام + رسانه)</li>
+<li><b>پیام‌ها</b> — فقط متن</li>
+<li><b>رسانه‌ها</b> — فقط فایل‌ها</li>
+</ul>
+</div>
+<div class="step"><h4>ایجاد بکاپ</h4>
+<div class="pre-box">۱. به بخش «بکاپ‌ها» بروید<br>
+۲. نوع بکاپ را انتخاب کنید<br>
+۳. محدوده تاریخی / چت‌های خاص را مشخص کنید<br>
+۴. رمزگذاری را فعال کنید (اختیاری)<br>
+۵. دکمه «ایجاد» را بزنید</div>
+</div>
+<div class="step"><h4>بازیابی</h4>
+<p>فایل بکاپ را انتخاب کرده و <b>بازیابی</b> را بزنید. سیستم اعتبارسنجی اینتریتی انجام می‌دهد.</p>
+</div>
+</div>
+
+<h2>👥 دوستان و دشمنان</h2>
+<div class="step">
+<h4>سیستم دوستان</h4>
+<ul>
+<li>دسته‌بندی مخاطبین</li>
+<li>تنظیم اولویت</li>
+<li>یادداشت و تگ</li>
+<li>عمل خودکار (پاسخ خودکار، نادیده گرفتن)</li>
+</ul>
+</div>
+<div class="step"><h4>سیستم دشمنان</h4>
+<ul>
+<li>مؤنث کردن (Mute) خودکار</li>
+<li>بلاک کردن (Block) خودکار</li>
+<li>محدود کردن (Restrict)</li>
+<li>هشدار به کاربر</li>
+</ul>
+</div>
+</div>
+
+<h2>👥 مدیریت گروه‌ها و کانال‌ها</h2>
+<div class="step">
+<h4>قابلیت‌های گروه</h4>
+<ul>
+<li>عضویت و ادمین‌ها</li>
+<li>مؤنث/بلاک کردن کاربران</li>
+<li>لینک دعوت</li>
+<li>سیستم خوش‌آمدگویی (Welcome)</li>
+<li>پادگردی (Anti-Spam, Anti-Link, Anti-Forward)</li>
+<li>فیلتر کلمات کلیدی</li>
+<li>قوانین گروه</li>
+</ul>
+</div>
+<div class="step"><h4>قابلیت‌های کانال</h4>
+<ul>
+<li>پست‌سازی زمان‌بندی‌شده</li>
+<li>مدیریت نظرات</li>
+<li>مدیریت ادمین‌ها</li>
+<li>آمار کانال</li>
+</ul>
+</div>
+</div>
+
+<h2>🔒 امنیت</h2>
+<div class="step">
+<h4>بخش امنیتی</h4>
+<ul>
+<li><b>نشست‌ها</b> — نمایش دستگاه‌ها و زمان آخرین اتصال</li>
+<li><b>رویدادهای امنیتی</b> — لاگ تمام رویدادهای امنیتی</li>
+<li><b>هشدار ورود</b> — تشخیص نشست‌های جدید</li>
+<li><b>توقف اضطراری</b> — متوقف کردن فوری تمام اتوماسیون‌ها</li>
+<li><b>لاگ بازرسی</b> — ثبت تمام اقدامات مهم</li>
+</ul>
+</div>
+<div class="warn-box">
+<b>⚠️ هشدار:</b> همیشه از دکمه <b>EMERGENCY STOP</b> قبل از هر تغییر بزرگ استفاده کنید و مطمئن شوید که تنظیمات درست است.
+</div>
+</div>
+
+<h2>📈 آمار و گزارش‌ها</h2>
+<div class="step">
+<h4>آمار حساب</h4><p>تعداد چت، پیام، رسانه، مخاطبین و استوری‌ها.</p></div>
+<div class="step"><h4>آمار چت</h4>
+<ul>
+<li>ارسال و دریافت پیام</li>
+<li>پیام‌های حذف‌شده</li>
+<li>نوع رسانه</li>
+<li>ساعات فعالیت</li>
+</ul>
+</div>
+<div class="step"><h4>نمودارها</h4><p>نمودارهای خطی، ستونی و دایره‌ای برای تحلیل داده‌ها.</p></div>
+</div>
+
+<h2>⚙️ تنظیمات</h2>
+<div class="step">
+<h4>اتصال تلگرام</h4>
+<ul>
+<li><code>API ID</code> و <code>API Hash</code></li>
+<li>شماره موبایل</li>
+<li>اتصال و قطع</li>
+</ul>
+</div>
+<div class="step"><h4>ظاهر و زبان</h4>
+<ul>
+<li><b>تم تاریک / روشن</b></li>
+<li><b>زبان فارسی / انگلیسی</b></li>
+<li>پشتیبانی کامل RTL</li>
+</ul>
+</div>
+</div>
+
+<h2>⌨️ میانبرهای صفحه‌کلید</h2>
+<table>
+<thead><tr><th>میانبر</th><th>عمل</th></tr></thead>
+<tbody>
+<tr><td><code>/</code></td><td>فوکوس روی جستجو</td></tr>
+<tr><td><code>Escape</code></td><td>بستن پنجره جستجو</td></tr>
+<tr><td><code>Enter</code></td><td>اجرای جستجو</td></tr>
+</tbody>
+</table>
+
+<h2>💡 نکات و ترفندها</h2>
+<div class="info-box">
+<ul>
+<li><b>همیشه قبل از فعال‌سازی اتوماسیون‌ها</b>، از <b>Emergency Stop</b> استفاده کنید</li>
+<li><b>اولین بار حساب را آرام‌سازی کنید</b> — سطح مبتدی را انتخاب کنید</li>
+<li><b>رمز ادمین را فوراً تغییر دهید</b> بعد از ورود اولیه</li>
+<li><b>لاگ‌ها را مرتب بررسی کنید</b> — بهترین جای برای عیب‌یابی</li>
+<li><b>نسخه‌بندی کنید</b> — با بکاپ‌های منظم داده‌ها را حفظ کنید</li>
+<li><b>Redis را فعال نگه دارید</b> — برای عملکرد کامل زمان‌بندی و صف</li>
+<li><b>ساعت کاری AI را تنظیم کنید</b> — برای جلوگیری از پاسخ‌های شبانه غیرمناسب</li>
+</ul>
+</div>
+
+<div class="ok-box">
+<b>✅ آماده!</b> حالا می‌توانید از تمام ویژگی‌ها لذت ببرید.
+<a href="features.html">✨ ویژگی‌ها &rarr;</a> | <a href="troubleshooting.html">🧯 عیب‌یابی &rarr;</a> | <a href="install.html">📖 نصب &rarr;</a>
+</div>
+
+<div class="footer">
+<p>Telegram Self-Bot / Account Management Platform · راهنمای کار · v1.0.0</p>
+<p>MIT License</p>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Telegram Self-Bot — Documentation</title>
+<style>
+  :root {
+    --bg-primary: #0f0f23;
+    --bg-secondary: #1a1a2e;
+    --bg-tertiary: #16213e;
+    --bg-card: #1a1a2e;
+    --bg-card-hover: #1f1f3a;
+    --text-primary: #e4e4f0;
+    --text-secondary: #a0a0b8;
+    --text-muted: #6b6b80;
+    --accent: #6c5ce7;
+    --accent-hover: #5a4bd1;
+    --accent-light: rgba(108, 92, 231, 0.15);
+    --success: #00b894;
+    --warning: #fdcb6e;
+    --danger: #e74c3c;
+    --info: #74b9ff;
+    --border: #2d2d44;
+    --border-light: #3d3d55;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.4);
+    --radius: 12px;
+    --radius-sm: 8px;
+    --radius-lg: 16px;
+    --font: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+    --mono: 'Cascadia Code', Consolas, 'Courier New', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.65;
+    font-size: 15px;
+  }
+
+  ::selection { background: var(--accent); color: #fff; }
+
+  /* Scrollbars */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--bg-primary); }
+  ::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 6px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+  a { color: var(--info); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ---------- Layout ---------- */
+  .layout { display: flex; min-height: 100vh; }
+
+  /* ---------- Sidebar ---------- */
+  .sidebar {
+    width: 275px;
+    flex-shrink: 0;
+    background: var(--bg-secondary);
+    border-right: 1px solid var(--border);
+    padding: 20px 14px 28px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .sidebar.collapsed { margin-left: -275px; }
+  .brand { display: flex; align-items: center; gap: 10px; padding: 6px 8px 20px; }
+  .brand-icon {
+    font-size: 1.5rem;
+    background: var(--accent-light);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 8px;
+    display: inline-flex;
+  }
+  .brand-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    background: linear-gradient(135deg, var(--accent), #a29bfe);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .brand-sub { font-size: 0.72rem; color: var(--text-muted); }
+  .sidebar nav a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-secondary);
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 2px;
+    font-size: 0.88rem;
+    transition: var(--transition, all 0.2s);
+  }
+  .sidebar nav a:hover { background: var(--bg-tertiary); color: var(--text-primary); text-decoration: none; }
+  .sidebar nav a.active { background: var(--accent-light); color: var(--accent); font-weight: 600; }
+  .sector-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    padding: 16px 12px 4px;
+  }
+  .sidebar-footer { margin-top: 24px; padding: 12px; color: var(--text-muted); font-size: 0.72rem; border-top: 1px solid var(--border); }
+  .status { display: flex; align-items: center; gap: 6px; margin-top: 8px; color: var(--success); }
+  .status .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--success); animation: pulse 1.8s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+  /* ---------- Main content ---------- */
+  .main { flex: 1; padding: 28px 36px 60px; min-width: 0; }
+
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 28px; gap: 16px; flex-wrap: wrap;
+  }
+  .menu-btn {
+    background: var(--bg-secondary); border: 1px solid var(--border);
+    color: var(--text-secondary); font-size: 1.15rem; padding: 6px 12px;
+    border-radius: var(--radius-sm); cursor: pointer; display: none;
+  }
+  .menu-btn:hover { background: var(--bg-tertiary); color: var(--text-primary); }
+  .search-box {
+    background: var(--bg-secondary); border: 1px solid var(--border);
+    color: var(--text-primary); border-radius: var(--radius-sm);
+    padding: 8px 14px; width: 260px; font-size: 0.85rem; position: relative;
+  }
+  .search-box input {
+    background: none; border: none; outline: none; color: var(--text-primary);
+    width: 100%; font-family: var(--font); font-size: 0.85rem;
+  }
+  .search-box input::placeholder { color: var(--text-muted); }
+  .search-hint { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 0.68rem; background: var(--bg-tertiary); padding: 2px 6px; border-radius: 6px; }
+
+  .hero {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 0 0 12px;
+    overflow: hidden;
+    margin-bottom: 32px;
+    background:
+      radial-gradient(900px 300px at 80% -10%, rgba(108,92,231,0.25), transparent 60%),
+      linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+  }
+  .hero-badge {
+    display: inline-block; background: var(--accent); color: #fff;
+    font-size: 0.7rem; padding: 4px 12px; margin: 22px 28px 0;
+    border-radius: 999px; letter-spacing: 0.06em; font-weight: 600;
+  }
+  .hero h1 { font-size: 2.15rem; margin: 14px 28px 6px; line-height: 1.25; }
+  .hero h1 span { color: var(--accent); }
+  .hero p { color: var(--text-secondary); margin: 0 28px 18px; max-width: 760px; }
+  .hero-meta { display: flex; gap: 18px; padding: 16px 28px; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.8rem; flex-wrap: wrap; }
+  .hero-meta b { color: var(--text-primary); }
+
+  /* ---------- Sections / cards ---------- */
+  section { margin-bottom: 48px; }
+  .section-title {
+    font-size: 1.5rem; margin-bottom: 6px; display: flex; align-items: center; gap: 10px;
+  }
+  .section-title::before { content: ''; width: 4px; height: 24px; background: var(--accent); border-radius: 4px; }
+  .section-desc { color: var(--text-secondary); margin-bottom: 20px; max-width: 800px; }
+
+  .card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow);
+    transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s;
+  }
+  .card:hover { box-shadow: var(--shadow-lg); }
+
+  .grid { display: grid; gap: 18px; }
+  .grid-2 { grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); }
+  .grid-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .grid-4 { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+
+  .feature-card { padding: 20px; }
+  .feature-card:hover { transform: translateY(-3px); }
+  .feature-icon {
+    width: 46px; height: 46px; border-radius: 12px; display: flex;
+    align-items: center; justify-content: center; font-size: 1.3rem;
+    background: var(--accent-light); border: 1px solid var(--border-light);
+    margin-bottom: 14px;
+  }
+  .feature-card h3 { font-size: 1.02rem; margin-bottom: 8px; }
+  .feature-card p { color: var(--text-secondary); font-size: 0.86rem; }
+  .tag {
+    display: inline-block; font-size: 0.66rem; padding: 2px 8px; border-radius: 999px;
+    margin-bottom: 10px; font-weight: 600; letter-spacing: 0.04em;
+  }
+  .tag.new { background: var(--success); color: #fff; }
+  .tag.pro { background: var(--warning); color: #000; }
+  .tag.core { background: var(--accent-light); color: var(--accent); }
+
+  /* ---------- Steps ---------- */
+  .steps { counter-reset: step; }
+  .step {
+    position: relative; padding: 18px 22px 18px 66px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); margin-bottom: 14px;
+  }
+  .step::before {
+    counter-increment: step; content: counter(step);
+    position: absolute; left: 18px; top: 18px; width: 32px; height: 32px;
+    background: var(--accent); color: #fff; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 0.9rem;
+  }
+  .step h3 { font-size: 1rem; margin-bottom: 6px; }
+  .step p, .step ul { color: var(--text-secondary); font-size: 0.88rem; }
+  .step ul { padding-left: 18px; margin-top: 6px; }
+  .step ul li { margin: 3px 0; }
+
+  /* ---------- Code ---------- */
+  code {
+    font-family: var(--mono); background: var(--bg-tertiary);
+    border: 1px solid var(--border-light); padding: 2px 6px;
+    border-radius: 6px; font-size: 0.8em; color: var(--warning);
+  }
+  pre {
+    font-family: var(--mono); background: #0b0b1c; border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm); padding: 16px 18px; overflow-x: auto;
+    margin: 12px 0; font-size: 0.8rem; line-height: 1.6; position: relative;
+  }
+  pre code { background: none; border: none; padding: 0; color: var(--text-primary); }
+  .copy-btn {
+    position: absolute; right: 8px; top: 8px; background: var(--bg-tertiary);
+    border: 1px solid var(--border-light); color: var(--text-secondary);
+    padding: 3px 10px; font-size: 0.68rem; border-radius: 6px; cursor: pointer;
+  }
+  .copy-btn:hover { color: var(--success); border-color: var(--success); }
+
+  /* ---------- Tables ---------- */
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; min-width: 480px; }
+  thead th {
+    background: var(--bg-tertiary); text-align: left; padding: 12px 16px;
+    font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary);
+    border-bottom: 1px solid var(--border);
+  }
+  tbody td { padding: 11px 16px; font-size: 0.85rem; color: var(--text-secondary); border-bottom: 1px solid var(--border); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: var(--bg-card-hover); }
+  td .label { font-family: var(--mono); color: var(--info); font-size: 0.82em; }
+  .method { font-family: var(--mono); font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 6px; color: #fff; display: inline-block; min-width: 52px; text-align: center; }
+  .get { background: #27ae60; } .post { background: #2980b9; }
+  .put { background: #8e44ad; } .patch { background: #f39c12; color:#000; } .delete { background: #e74c3c; }
+
+  /* ---------- FAQ ---------- */
+  details {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); margin-bottom: 10px; overflow: hidden;
+  }
+  details summary {
+    cursor: pointer; padding: 16px 20px; font-weight: 600; font-size: 0.92rem;
+    list-style: none; display: flex; justify-content: space-between; align-items: center; color: var(--text-primary);
+  }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::after { content: '+'; font-size: 1.3rem; color: var(--accent); transition: transform 0.2s; }
+  details[open] summary::after { content: '\2013'; }
+  details .faq-body { padding: 0 20px 18px; color: var(--text-secondary); font-size: 0.88rem; }
+
+  /* ---------- Callout ---------- */
+  .callout {
+    border-left: 4px solid var(--accent); background: var(--accent-light);
+    padding: 14px 18px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    color: var(--text-secondary); font-size: 0.88rem; margin: 14px 0;
+  }
+  .callout.warn { border-left-color: var(--warning); background: rgba(253,203,110,0.08); }
+  .callout.danger { border-left-color: var(--danger); background: rgba(231,76,60,0.08); }
+  .callout.ok { border-left-color: var(--success); background: rgba(0,184,148,0.08); }
+  .callout b { color: var(--text-primary); }
+
+  /* ---------- Footer ---------- */
+  footer { border-top: 1px solid var(--border); margin-top: 40px; padding: 24px 0 8px; color: var(--text-muted); font-size: 0.8rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+
+  /* ---------- Back to top ---------- */
+  #toTop {
+    position: fixed; bottom: 24px; right: 24px; width: 44px; height: 44px;
+    background: var(--accent); color: #fff; border: none; border-radius: 12px;
+    font-size: 1.2rem; cursor: pointer; box-shadow: var(--shadow-lg);
+    opacity: 0; pointer-events: none; transition: opacity 0.3s, transform 0.2s;
+  }
+  #toTop.show { opacity: 1; pointer-events: all; }
+  #toTop:hover { transform: translateY(-3px); background: var(--accent-hover); }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1080px) { .main { padding: 22px 22px 50px; } }
+  @media (max-width: 860px) {
+    .menu-btn { display: inline-block; }
+    .sidebar { position: fixed; left: 0; top: 0; z-index: 50; box-shadow: var(--shadow-lg); }
+    .sidebar.collapsed { margin-left: -275px; }
+    .main { padding: 18px 16px 50px; }
+    .hero h1 { font-size: 1.6rem; }
+    .search-box { width: 100%; }
+    .topbar { margin-bottom: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+  <!-- ========== SIDEBAR ========== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <span class="brand-icon">🤖</span>
+      <div>
+        <div class="brand-title">TG Bot Docs</div>
+        <div class="brand-sub">Telegram Self-Bot Platform</div>
+      </div>
+    </div>
+
+    <nav id="nav">
+      <div class="sector-label">Getting Started</div>
+      <a href="#overview" class="active" data-target="overview">📌 Overview</a>
+      <a href="#features" data-target="features">✨ Features</a>
+      <a href="#trending" data-target="trending">🔥 Trending Features</a>
+      <a href="#installation" data-target="installation">🛠 Installation</a>
+      <div class="sector-label">Reference</div>
+      <a href="#configuration" data-target="configuration">⚙️ Configuration</a>
+      <a href="#api" data-target="api">🧩 API Reference</a>
+      <a href="#cli" data-target="cli">💻 CLI Commands</a>
+      <a href="#security" data-target="security">🔒 Security</a>
+      <div class="sector-label">Support</div>
+      <a href="#troubleshooting" data-target="troubleshooting">🧯 Troubleshooting</a>
+      <a href="#faq" data-target="faq">❓ FAQ</a>
+      <a href="#links" data-target="links">📚 More Docs</a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="status"><span class="dot"></span> Docs v1.0.0</div>
+      <div style="margin-top:6px">MIT Licensed · English / فارسی</div>
+    </div>
+  </aside>
+
+  <!-- ========== MAIN ========== -->
+  <div class="main">
+
+    <div class="topbar">
+      <button class="menu-btn" id="menuBtn" aria-label="Toggle navigation">☰</button>
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search documentation..." aria-label="Search" />
+        <span class="search-hint">/</span>
+      </div>
+    </div>
+
+    <!-- HERO -->
+    <div class="hero" id="overview">
+      <span class="hero-badge">PROFESSIONAL PLATFORM · v1.0.0</span>
+      <h1>Telegram <span>Self-Bot</span> &amp; Account Management Platform</h1>
+      <p>
+        A modular, production-ready Telegram client with a modern web dashboard —
+        message &amp; media archiving, rule-based auto-reply, AI chat automation,
+        account warming, neuro dialogs, smart forwarding, multi-account control,
+        security center, backup/restore and much more.
+      </p>
+      <div class="hero-meta">
+        <span><b>Stack:</b> FastAPI · Vue 3 · Telethon · SQLAlchemy · Redis · Celery</span>
+        <span><b>API:</b> REST + WebSocket</span>
+        <span><b>Interface:</b> English &amp; فارسی (RTL)</span>
+        <span><b>License:</b> MIT</span>
+      </div>
+    </div>
+
+    <!-- FEATURES -->
+    <section id="features">
+      <h2 class="section-title">Features</h2>
+      <p class="section-desc">Everything the platform does, at a glance. New/trending capabilities are highlighted — details below.</p>
+
+      <div class="grid grid-3">
+        <div class="card feature-card"><span class="tag core">CORE</span><div class="feature-icon">💬</div><h3>Message Archive</h3><p>Complete searchable history with filters, sender/chat context, forward provenance and raw event data.</p></div>
+        <div class="card feature-card"><span class="tag core">CORE</span><div class="feature-icon">🖼️</div><h3>Media Archive</h3><p>Photos, videos, voice, audio, documents, GIFs &amp; stickers. SHA-256 duplicate detection and one-click download.</p></div>
+        <div class="card feature-card"><span class="tag core">CORE</span><div class="feature-icon">🗑️</div><h3>Deleted Messages</h3><p>Capture the original content of deleted and ghost-edited messages — even from cleanup-happy spam bots.</p></div>
+        <div class="card feature-card"><span class="tag core">CORE</span><div class="feature-icon">📖</div><h3>Story Archive</h3><p>Stories from contacts archived locally before they expire. Auto-refreshed every 6 hours.</p></div>
+        <div class="card feature-card"><span class="tag core">CORE</span><div class="feature-icon">👤</div><h3>Profile Monitor</h3><p>Hourly change detection for usernames, names and bios across your contacts.</p></div>
+        <div class="card feature-card"><span class="tag core">CORE</span><div class="feature-icon">🤖</div><h3>Auto Reply</h3><p>Rule engine with 6 trigger types (exact, contains, regex, command…), priorities, scopes, working hours and media responses.</p></div>
+        <div class="card feature-card"><span class="tag core">CORE</span><div class="feature-icon">👥</div><h3>Group Management</h3><p>Anti-spam, anti-link, anti-flood, keyword filters, welcomes, rules, plus mute/ban/unban moderation.</p></div>
+        <div class="card feature-card"><span class="tag core">CORE</span><div class="feature-icon">📢</div><h3>Channel Management</h3><p>Auto-posting, scheduled post queues and comment management.</p></div>
+        <div class="card feature-card"><span class="tag core">CORE</span><div class="feature-icon">🔒</div><h3>Security Center</h3><p>Session monitor, security events feed, audit logs and one-click <b>EMERGENCY STOP</b> for all automation.</p></div>
+        <div class="card feature-card"><span class="tag core">CORE</span><div class="feature-icon">💾</div><h3>Backup &amp; Restore</h3><p>Full / messages / media backups with encryption, compression, integrity hashing and restore.</p></div>
+        <div class="card feature-card"><span class="tag core">CORE</span><div class="feature-icon">⏰</div><h3>Scheduler</h3><p>Cron &amp; interval tasks backed by APScheduler + Celery beat.</p></div>
+        <div class="card feature-card"><span class="tag core">CORE</span><div class="feature-icon">📡</div><h3>Broadcast</h3><p>Rate-limited mass messaging with pause/resume/cancel and live progress.</p></div>
+        <div class="card feature-card"><span class="tag core">CORE</span><div class="feature-icon">🔁</div><h3>Repeater</h3><p>Re-send a message on a fixed interval with cooldown and working-hour control.</p></div>
+        <div class="card feature-card"><span class="tag core">CORE</span><div class="feature-icon">📈</div><h3>Statistics</h3><p>Line/bar/pie analytics over a 90-day retention window.</p></div>
+        <div class="card feature-card"><span class="tag core">CORE</span><div class="feature-icon">🔄</div><h3>Media Converter</h3><p>FFmpeg conversions: text↔voice, video↔round, audio extraction, Whisper STT.</p></div>
+        <div class="card feature-card"><span class="tag core">CORE</span><div class="feature-icon">⚡</div><h3>Workflow Builder</h3><p>Graph-based automation of triggers and actions, fully manageable over REST.</p></div>
+        <div class="card feature-card"><span class="tag core">CORE</span><div class="feature-icon">📋</div><h3>Logs &amp; Health</h3><p>Structured logs in the UI and a system health page (CPU, memory, disk, DB, Telegram state).</p></div>
+        <div class="card feature-card"><span class="tag core">CORE</span><div class="feature-icon">🧩</div><h3>Plugin System</h3><p>Modular plugins with manifests and service integration for every subsystem.</p></div>
+      </div>
+    </section>
+
+    <!-- TRENDING -->
+    <section id="trending">
+      <h2 class="section-title">🔥 New Trending Features</h2>
+      <p class="section-desc">The newest additions — the automation capabilities Telegram is pushing for, self-hosted and fully under your control.</p>
+
+      <div class="grid grid-4">
+        <div class="card feature-card"><span class="tag new">TRENDING</span><div class="feature-icon">🧠</div><h3>AI Chat Automation</h3><p>Self-hosted equivalent of Telegram's chat automation: an AI profile answers on your behalf with personalities, quotas and working hours.</p></div>
+        <div class="card feature-card"><span class="tag new">TRENDING</span><div class="feature-icon">🌡️</div><h3>Account Warming</h3><p>Gradually ramp a new/inactive account to full activity with human-like behavior and automatic level-ups.</p></div>
+        <div class="card feature-card"><span class="tag new">TRENDING</span><div class="feature-icon">💬</div><h3>Neuro Dialogs</h3><p>Context-aware AI conversations with personalities incl. bilingual Persian &amp; Arabic — replies that don't feel robotic.</p></div>
+        <div class="card feature-card"><span class="tag new">TRENDING</span><div class="feature-icon">📤</div><h3>Smart Forward</h3><p>Filtered, transformed message forwarding between chats: keywords, sender whitelists, prefixes and more.</p></div>
+        <div class="card feature-card"><span class="tag new">TRENDING</span><div class="feature-icon">🗂️</div><h3>Multi-Account</h3><p>Manage several Telegram accounts from one dashboard, each with its own automation toggles.</p></div>
+        <div class="card feature-card"><span class="tag new">TRENDING</span><div class="feature-icon">🧮</div><h3>User Parser</h3><p>Extract member/contact lists from groups and channels to feed broadcasts and targeting.</p></div>
+        <div class="card feature-card"><span class="tag pro">AI</span><div class="feature-icon">🤖</div><h3>Multi-Provider AI</h3><p>OpenAI, Gemini, DeepSeek, OpenRouter and local LLMs behind one factory interface.</p></div>
+        <div class="card feature-card"><span class="tag pro">AI</span><div class="feature-icon">🎙️</div><h3>Speech Intelligence</h3><p>Text-to-voice and voice-to-text powered by FFmpeg + Whisper.</p></div>
+      </div>
+    </section>
+
+    <!-- INSTALLATION -->
+    <section id="installation">
+      <h2 class="section-title">Installation</h2>
+      <p class="section-desc">Works on Linux, macOS, Windows and Docker. Requires <b>Python 3.11+</b>, <b>FFmpeg</b> and <b>Redis</b>.</p>
+
+      <div class="steps">
+        <div class="step">
+          <h3>Get Telegram API credentials</h3>
+          <p>Open <a href="https://my.telegram.org" target="_blank" rel="noopener">my.telegram.org</a> → <b>API development tools</b> → create an app. Copy the numeric <b>api_id</b> and the 32-character <b>api_hash</b>.</p>
+        </div>
+        <div class="step">
+          <h3>Install the project</h3>
+          <ul>
+            <li><b>Linux/macOS:</b> <code>chmod +x install.sh && ./install.sh</code></li>
+            <li><b>Windows:</b> run <code>.\install.ps1</code> in PowerShell</li>
+            <li><b>Manual:</b> <code>pip install -e ".[dev,ai,media]"</code> then <code>cp .env.example .env</code></li>
+          </ul>
+        </div>
+        <div class="step">
+          <h3>Configure .env</h3>
+          <p>Set <code>TELEGRAM_API_ID</code>, <code>TELEGRAM_API_HASH</code>, and strong random values for <code>APP_SECRET_KEY</code>, <code>JWT_SECRET_KEY</code>, <code>ENCRYPTION_KEY</code>, <code>CSRF_SECRET_KEY</code>. PostgreSQL is recommended for production.</p>
+        </div>
+        <div class="step">
+          <h3>Run migrations &amp; create admin</h3>
+<pre><code>python -m backend.app.main migrate
+python -m backend.app.main init-admin   # admin / admin123</code></pre>
+        </div>
+        <div class="step">
+          <h3>Start the server</h3>
+<pre><code>python -m backend.app.main serve --reload</code></pre>
+          <p>Dashboard → <code>http://localhost:8000</code> · API docs → <code>http://localhost:8000/api/docs</code></p>
+        </div>
+        <div class="step">
+          <h3>Docker (production path)</h3>
+<pre><code>cp .env.example .env
+# edit .env …
+docker-compose up -d
+docker-compose exec app python -m backend.app.main init-admin</code></pre>
+          <p>Runs app + Celery worker + beat + Redis with healthchecks.</p>
+        </div>
+      </div>
+
+      <div class="callout danger"><b>Security:</b> change the default <code>admin/admin123</code> password right after the first login, and never deploy with placeholder secrets.</div>
+    </section>
+
+    <!-- CONFIGURATION -->
+    <section id="configuration">
+      <h2 class="section-title">Configuration</h2>
+      <p class="section-desc">Key environment variables you'll touch most often.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Variable</th><th>Default</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td><span class="label">TELEGRAM_API_ID</span></td><td>—</td><td>Required. API app id from my.telegram.org</td></tr>
+            <tr><td><span class="label">TELEGRAM_API_HASH</span></td><td>—</td><td>Required. API app hash</td></tr>
+            <tr><td><span class="label">DATABASE_URL</span></td><td>sqlite:///./storage/database.db</td><td>SQLite / PostgreSQL / MySQL DSN</td></tr>
+            <tr><td><span class="label">REDIS_URL</span></td><td>redis://localhost:6379/0</td><td>Cache + task broker</td></tr>
+            <tr><td><span class="label">JWT_SECRET_KEY</span></td><td>placeholder</td><td>Signs auth tokens — change it</td></tr>
+            <tr><td><span class="label">ENCRYPTION_KEY</span></td><td>placeholder</td><td>Encrypts sessions &amp; backups at rest — change it</td></tr>
+            <tr><td><span class="label">AI_PROVIDER</span></td><td>openai</td><td>openai / gemini / deepseek / local</td></tr>
+            <tr><td><span class="label">OPENAI_API_KEY</span></td><td>—</td><td>Key for AI features (see also GEMINI/DEEPSEEK/OPENROUTER)</td></tr>
+            <tr><td><span class="label">MEDIA_STORAGE_PATH</span></td><td>storage/media</td><td>Archived media location</td></tr>
+            <tr><td><span class="label">BACKUP_STORAGE_PATH</span></td><td>storage/backups</td><td>Backup archives</td></tr>
+            <tr><td><span class="label">FFMPEG_PATH</span></td><td>ffmpeg</td><td>FFmpeg binary (converter features)</td></tr>
+            <tr><td><span class="label">RATE_LIMIT_REQUESTS</span></td><td>30</td><td>API requests per window per IP</td></tr>
+            <tr><td><span class="label">SCHEDULER_TIMEZONE</span></td><td>UTC</td><td>Task scheduler timezone</td></tr>
+            <tr><td><span class="label">BACKUP_ENCRYPTION_ENABLED</span></td><td>true</td><td>Encrypt backup archives</td></tr>
+            <tr><td><span class="label">APP_PORT</span></td><td>8000</td><td>HTTP listen port</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- API -->
+    <section id="api">
+      <h2 class="section-title">API Reference</h2>
+      <p class="section-desc">REST API mounted at <code>/api</code>. Interactive Swagger UI at <code>/api/docs</code>; auth via <code>Authorization: Bearer &lt;token&gt;</code>. Health check (no auth) at <code>/health</code>.</p>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <h3 style="margin-bottom: 12px;">Automation &amp; AI</h3>
+          <div class="table-wrap"><table>
+            <thead><tr><th>Method</th><th>Path</th></tr></thead>
+            <tbody>
+              <tr><td><span class="method post">POST</span></td><td><span class="label">/automation/chat-automation/setup</span></td></tr>
+              <tr><td><span class="method post">POST</span></td><td><span class="label">/automation/chat-automation/toggle/{user_id}</span></td></tr>
+              <tr><td><span class="method get">GET</span></td><td><span class="label">/automation/chat-automation/log/{user_id}</span></td></tr>
+              <tr><td><span class="method post">POST</span></td><td><span class="label">/automation/warming/start</span></td></tr>
+              <tr><td><span class="method get">GET</span></td><td><span class="label">/automation/warming/status/{user_id}</span></td></tr>
+              <tr><td><span class="method get">GET</span></td><td><span class="label">/automation/warming/levels</span></td></tr>
+              <tr><td><span class="method post">POST</span></td><td><span class="label">/automation/neuro-dialog/create</span></td></tr>
+              <tr><td><span class="method post">POST</span></td><td><span class="label">/automation/smart-forward/create</span></td></tr>
+              <tr><td><span class="method post">POST</span></td><td><span class="label">/automation/multi-account/add</span></td></tr>
+            </tbody>
+          </table></div>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-bottom: 12px;">Core Modules</h3>
+          <div class="table-wrap"><table>
+            <thead><tr><th>Method</th><th>Path · Purpose</th></tr></thead>
+            <tbody>
+              <tr><td><span class="method get">GET</span></td><td><span class="label">/messages/</span> · message archive &amp; search</td></tr>
+              <tr><td><span class="method get">GET</span></td><td><span class="label">/media/</span> · media archive &amp; stats</td></tr>
+              <tr><td><span class="method get">GET</span></td><td><span class="label">/stories/</span> · story archive</td></tr>
+              <tr><td><span class="method get">GET</span></td><td><span class="label">/profile/changes</span> · profile monitor</td></tr>
+              <tr><td><span class="method get">GET</span></td><td><span class="label">/groups/</span> · groups + management</td></tr>
+              <tr><td><span class="method get">GET</span></td><td><span class="label">/channels/</span> · channels + management</td></tr>
+              <tr><td><span class="method get">GET</span></td><td><span class="label">/security/events</span> · security center</td></tr>
+              <tr><td><span class="method post">POST</span></td><td><span class="label">/system/emergency-stop</span> · stop all automation</td></tr>
+              <tr><td><span class="method get">GET</span></td><td><span class="label">/system/health</span> · health info</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-bottom: 12px;">Automation Engines</h3>
+          <div class="table-wrap"><table>
+            <thead><tr><th>Method</th><th>Path · Purpose</th></tr></thead>
+            <tbody>
+              <tr><td><span class="method get">GET</span></td><td><span class="label">/autoreply/</span> · auto-reply rules CRUD + toggle</td></tr>
+              <tr><td><span class="method get">GET</span></td><td><span class="label">/scheduler/</span> · cron/interval tasks</td></tr>
+              <tr><td><span class="method get">GET</span></td><td><span class="label">/broadcast/</span> · mass messaging lifecycle</td></tr>
+              <tr><td><span class="method get">GET</span></td><td><span class="label">/repeater/</span> · repeat tasks</td></tr>
+              <tr><td><span class="method get">GET</span></td><td><span class="label">/workflows/</span> · visual automation CRUD</td></tr>
+              <tr><td><span class="method get">GET</span></td><td><span class="label">/statistics/account</span> · analytics</td></tr>
+              <tr><td><span class="method get">GET</span></td><td><span class="label">/converter/formats</span> · conversions</td></tr>
+              <tr><td><span class="method get">GET</span></td><td><span class="label">/backups/</span> · backup/restore/download</td></tr>
+              <tr><td><span class="method get">GET</span></td><td><span class="label">/friends/</span> · friends categories</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-bottom: 12px;">Example — start account warming</h3>
+<pre><code>curl -X POST http://localhost:8000/api/automation/warming/start \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"level": "beginner", "duration_days": 14}'</code></pre>
+          <div class="callout ok" style="margin-top: 8px;"><b>Tip:</b> get an interactive OpenAPI playground with auth tokens at <code>/api/docs</code>.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLI -->
+    <section id="cli">
+      <h2 class="section-title">CLI Commands</h2>
+<pre><code>python -m backend.app.main serve --reload              # start dev server
+python -m backend.app.main serve --port 9000           # custom port
+python -m backend.app.main migrate                     # run DB migrations
+python -m backend.app.main makemigration -m "change"   # new migration
+python -m backend.app.main init-admin                  # create admin (admin/admin123)</code></pre>
+      <div class="callout"><b>Console script:</b> installing the package also exposes <code>telegram-bot</code> as a shortcut to the same CLI.</div>
+    </section>
+
+    <!-- SECURITY -->
+    <section id="security">
+      <h2 class="section-title">Security</h2>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3 style="margin-bottom:10px;">Built-in protections</h3>
+          <ul style="color: var(--text-secondary); font-size: 0.88rem; padding-left: 18px;">
+            <li>JWT auth (30-min access + 7-day refresh tokens)</li>
+            <li>bcrypt password hashing + CSRF middleware</li>
+            <li>Rate limiting (30 req/min/IP) + audit logging</li>
+            <li>Session &amp; backup encryption at rest</li>
+            <li>Emergency stop that halts all automation</li>
+            <li>Anti-abuse caps (per action / chat / user)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom:10px;">Recommended hardening</h3>
+          <ul style="color: var(--text-secondary); font-size: 0.88rem; padding-left: 18px;">
+            <li>Random <b>APP_SECRET_KEY / JWT_SECRET_KEY / ENCRYPTION_KEY / CSRF_SECRET_KEY</b></li>
+            <li>Change the default admin password immediately</li>
+            <li>Use PostgreSQL in production</li>
+            <li>Reverse proxy (nginx) + TLS in front</li>
+            <li>Monitor the Security Center &amp; audit logs weekly</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- TROUBLESHOOTING -->
+    <section id="troubleshooting">
+      <h2 class="section-title">Troubleshooting</h2>
+      <div class="steps">
+        <div class="step">
+          <h3>FloodWait errors</h3>
+          <p>Telegram is throttling your account. <b>Stop automation</b> (Emergency Stop), wait out the penalty, then reduce intensity: increase broadcast delays (3–5 s+), lower <code>max_responses_per_day</code>, and warm up at <code>beginner</code>.</p>
+        </div>
+        <div class="step">
+          <h3>Dashboard blank / 404</h3>
+          <p>The Vue frontend hasn't been built. Run <code>cd frontend && npm install && npm run build</code>, then restart and hard-refresh the browser.</p>
+        </div>
+        <div class="step">
+          <h3>Redis connection refused</h3>
+          <p>Confirm with <code>redis-cli ping</code> (expect <code>PONG</code>) and align <code>REDIS_URL</code>. In Docker check <code>docker-compose ps</code>.</p>
+        </div>
+        <div class="step">
+          <h3>ModuleNotFoundError: backend</h3>
+          <p>You're not on the project root, or the package isn't installed in editable mode. Run <code>pip install -e ".[dev,ai,media]"</code> and start from the root.</p>
+        </div>
+        <div class="step">
+          <h3>Tables missing / migration errors</h3>
+          <p>Run <code>python -m backend.app.main migrate</code>. For a broken SQLite file, back up, remove <code>storage/database.db</code>, and re-migrate.</p>
+        </div>
+      </div>
+      <div class="callout"><b>Rule of thumb:</b> read <code>storage/logs/app.log</code> (or the dashboard <b>Logs</b> tab) first — the answer to almost every problem is printed there.</div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+      <h2 class="section-title">FAQ</h2>
+
+      <details open>
+        <summary>Is this an "official" Telegram Bot API bot?</summary>
+        <div class="faq-body">No. It connects through Telegram's MTProto (via Telethon) using your personal <b>api_id/api_hash</b> from my.telegram.org. It's a self-bot/userbot platform for managing your own account(s).</div>
+      </details>
+
+      <details>
+        <summary>Is using a self-bot against Telegram's ToS?</summary>
+        <div class="faq-body">Telegram formally discourages userbots; excessive spam/automation can lead to temporary FloodWait limits or restrictions. This platform includes <b>Account Warming</b>, rate limits, and an emergency stop specifically to help you stay within safe boundaries. Use responsibly.</div>
+      </details>
+
+      <details>
+        <summary>Can I run multiple accounts from one dashboard?</summary>
+        <div class="faq-body">Yes — the <b>Multi-Account Manager</b> keeps a registry of accounts each with its own API credentials and per-account toggles for auto-reply, warming, and chat automation.</div>
+      </details>
+
+      <details>
+        <summary>Which AI providers work out of the box?</summary>
+        <div class="faq-body">OpenAI, Google Gemini, DeepSeek, OpenRouter, and local LLMs (Ollama style) via <code>LOCAL_LLM_URL</code>. Install the AI extras with <code>pip install -e ".[ai]"</code>.</div>
+      </details>
+
+      <details>
+        <summary>Do I need Redis?</summary>
+        <div class="faq-body">The dashboard and core archiving work without it, but schedulers, broadcasts, repeaters, backup jobs, and Celery workers require Redis. Use it — the Docker install makes it trivial.</div>
+      </details>
+
+      <details>
+        <summary>Where is my data stored?</summary>
+        <div class="faq-body">By default in <code>storage/</code>: SQLite database (<code>database.db</code>), media (<code>media/</code>), backups (<code>backups/</code>), and logs (<code>logs/</code>). All overridable in <code>.env</code>.</div>
+      </details>
+
+      <details>
+        <summary>How do I recover if I forget the admin password?</summary>
+        <div class="faq-body">From the server console run <code>python -m backend.app.main init-admin</code> (it recreates the default admin if missing), or reset the bcrypt hash directly in the database.</div>
+      </details>
+
+      <details>
+        <summary>Is there a public API / Swagger?</summary>
+        <div class="faq-body">Yes — Swagger UI at <code>/api/docs</code>, ReDoc at <code>/api/redoc</code>, and the OpenAPI schema at <code>/api/openapi.json</code>. Plus a WebSocket channel at <code>/ws</code> for real-time updates.</div>
+      </details>
+    </section>
+
+    <!-- LINKS -->
+    <section id="links">
+      <h2 class="section-title">More Documentation</h2>
+      <div class="grid grid-2">
+        <div class="card"><h3>📘 INSTALL.md</h3><p>Detailed install steps for Linux, Windows, Docker; .env reference; first-run; production deployment.</p></div>
+        <div class="card"><h3>📗 USER_GUIDE.md</h3><p>Section-by-section tour of the dashboard with practical tips, examples and keyboard shortcuts.</p></div>
+        <div class="card"><h3>📙 TROUBLESHOOTING.md</h3><p>Error catalog, connection/database issues, FloodWait handling, performance tuning, log analysis, recovery.</p></div>
+        <div class="card"><h3>📕 docs/ – ARCHITECTURE.md &amp; SECURITY.md</h3><p>System architecture and the security hardening guide.</p></div>
+        <div class="card" style="grid-column: 1 / -1;"><h3>🧪 Trying it now?</h3><p>Open the dashboard at <code>http://localhost:8000</code> (admin / admin123), connect your Telegram session under <b>Settings</b>, then explore <b>Security Center → EMERGENCY STOP</b> before trusting any automation to run unattended.</p></div>
+      </div>
+    </section>
+
+    <footer>
+      <span>Telegram Self-Bot / Account Management Platform · Docs v1.0.0</span>
+      <span>MIT License · No external dependencies in this page</span>
+    </footer>
+  </div>
+</div>
+
+<button id="toTop" title="Back to top">↑</button>
+
+<script>
+(function () {
+  // ---------- Sidebar scroll-spy + mobile toggle ----------
+  var nav = document.getElementById('nav');
+  var sidebar = document.getElementById('sidebar');
+  var sections = Array.prototype.slice.call(document.querySelectorAll('section[id]'));
+
+  function setActive(id) {
+    var links = nav.querySelectorAll('a');
+    for (var i = 0; i < links.length; i++) {
+      links[i].classList.toggle('active', links[i].dataset.target === id);
+    }
+  }
+
+  var spyTimer = null;
+  window.addEventListener('scroll', function () {
+    if (spyTimer) return;
+    spyTimer = setTimeout(function () {
+      spyTimer = null;
+      var pos = window.scrollY + 120;
+      var current = 'overview';
+      for (var i = 0; i < sections.length; i++) {
+        if (sections[i].offsetTop <= pos) current = sections[i].id;
+      }
+      setActive(current);
+    }, 60);
+  });
+
+  // Mobile sidebar handling
+  var menuBtn = document.getElementById('menuBtn');
+  menuBtn.addEventListener('click', function () {
+    sidebar.classList.toggle('collapsed');
+  });
+
+  nav.addEventListener('click', function (e) {
+    var a = e.target.closest('a');
+    if (a && window.innerWidth < 860) sidebar.classList.add('collapsed');
+  });
+
+  // ---------- Live search (JS search index) ----------
+  var searchIndex = [];
+  var headings = document.querySelectorAll('h1,h2,h3');
+  for (var h = 0; h < headings.length; h++) {
+    searchIndex.push({ text: headings[h].textContent.toLowerCase(), el: headings[h] });
+  }
+  var paragraphs = document.querySelectorAll('p');
+  for (var p = 0; p < paragraphs.length; p++) {
+    var t = paragraphs[p].textContent.trim().toLowerCase();
+    if (t.length > 12) searchIndex.push({ text: t, el: paragraphs[p] });
+  }
+
+  var input = document.getElementById('searchInput');
+  var flash = null;
+  function flashEl(el) {
+    if (!el) return;
+    var orig = el.style.background;
+    el.style.transition = 'background 0.4s';
+    el.style.background = 'rgba(108,92,231,0.4)';
+    clearTimeout(flash);
+    flash = setTimeout(function () { el.style.background = orig; }, 1200);
+  }
+
+  input.addEventListener('keydown', function (e) {
+    if (e.key === '/') {
+      e.preventDefault();
+      input.focus();
+      return;
+    }
+    if (e.key === 'Escape') { input.blur(); return; }
+    if (e.key !== 'Enter') return;
+    var q = input.value.trim().toLowerCase();
+    if (q.length < 2) return;
+    for (var i = 0; i < searchIndex.length; i++) {
+      if (searchIndex[i].text.indexOf(q) !== -1) {
+        var el = searchIndex[i].el;
+        var sec = el.closest('section') || el;
+        sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        flashEl(el);
+        setActive(sec.id || '');
+        if (window.innerWidth < 860) sidebar.classList.add('collapsed');
+        return;
+      }
+    }
+  });
+
+  // ---------- Copy buttons for code blocks ----------
+  var pres = document.querySelectorAll('pre');
+  for (var i = 0; i < pres.length; i++) {
+    var btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.textContent = 'Copy';
+    (function (pre, b) {
+      b.addEventListener('click', function () {
+        var txt = pre.innerText;
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(txt).then(function () {
+            b.textContent = 'Copied ✓';
+            setTimeout(function () { b.textContent = 'Copy'; }, 1500);
+          }).catch(function () { fallback(txt); });
+        } else { fallback(txt); }
+      });
+    })(pres[i], btn);
+    pres[i].appendChild(btn);
+  }
+  function fallback(txt) {
+    var ta = document.createElement('textarea');
+    ta.value = txt; document.body.appendChild(ta);
+    ta.select(); document.execCommand('copy');
+    document.body.removeChild(ta);
+  }
+
+  // ---------- Back to top ----------
+  var toTop = document.getElementById('toTop');
+  window.addEventListener('scroll', function () {
+    toTop.classList.toggle('show', window.scrollY > 600);
+  });
+  toTop.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // ---------- Set version badges & timestamps ----------
+  var d = new Date();
+  var year = d.getFullYear();
+  var foot = document.querySelector('footer span');
+  if (foot) foot.textContent = 'Telegram Self-Bot / Account Management Platform · Docs v1.0.0';
+})();
+</script>
+
+</body>
+</html>
